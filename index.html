@@ -2,6 +2,8 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Avery Estate | North Carolina Residential &amp; Commercial Advisory</title>
+<!-- Bootstrap 5 CSS -->
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet">
 <!-- Tailwind CSS CDN with Forms & Container Queries -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <!-- Google Fonts: Newsreader (Editorial Serif) and Plus Jakarta Sans (Clean Modern Body) -->
@@ -62,6 +64,14 @@
       background-color: #b36b3f;
       color: #ffffff;
     }
+    /* Prevent Bootstrap base overrides on specific anchor styles */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    a:hover {
+      color: inherit;
+    }
   </style>
 <style data-purpose="layout-effects">
     /* Subtle noise texture simulation and smooth transitions */
@@ -76,17 +86,24 @@
       background-color: #edebe5;
       border-radius: 9999px;
     }
+    /* Offcanvas Top Drawer Custom Transitions */
+    #nav-drawer-backdrop {
+      transition: opacity 0.4s ease-in-out;
+    }
+    #top-nav-drawer {
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
   </style>
 </head>
 <body class="bg-linen-50 text-charcoal-800 font-sans antialiased selection:bg-cognac-500 selection:text-white" id="overview">
 <!-- BEGIN: Top Slide-Down Offcanvas Drawer Menu -->
-<div aria-hidden="true" class="fixed inset-0 z-[60] pointer-events-none transition-all duration-500 ease-out opacity-0" id="nav-drawer-backdrop">
-<div class="absolute inset-0 bg-charcoal-900/60 backdrop-blur-sm pointer-events-auto" onclick="closeNavDrawer()"></div>
-<div class="relative w-full bg-forest-900 text-linen-100 border-b border-forest-700/80 shadow-2xl transition-transform duration-500 ease-out transform -translate-y-full pointer-events-auto max-h-[92vh] overflow-y-auto" id="top-nav-drawer">
+<div aria-hidden="true" class="fixed inset-0 z-[60] pointer-events-none opacity-0" id="nav-drawer-backdrop">
+<div class="absolute inset-0 bg-charcoal-900/60 backdrop-blur-sm pointer-events-auto" id="drawer-scrim"></div>
+<div aria-label="Index Navigation Drawer" class="relative w-full bg-forest-900 text-linen-100 border-b border-forest-700/80 shadow-2xl transform -translate-y-full pointer-events-auto max-h-[92vh] overflow-y-auto" id="top-nav-drawer" role="dialog">
 <div class="max-w-7xl mx-auto px-6 lg:px-12 py-8 lg:py-12">
 <!-- Drawer Header Bar -->
 <div class="flex items-center justify-between pb-6 border-b border-forest-800">
-<a class="flex items-center gap-3 group" href="#overview" onclick="closeNavDrawer()">
+<a class="flex items-center gap-3 group drawer-scroll-link" href="#overview">
 <div class="w-9 h-9 rounded-full bg-forest-800 flex items-center justify-center text-linen-100 transition-transform duration-300 group-hover:rotate-45">
 <i class="fa-solid fa-compass text-sm text-cognac-400"></i>
 </div>
@@ -96,11 +113,11 @@
 </div>
 </a>
 <div class="flex items-center gap-4">
-<button class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-cognac-600 hover:bg-cognac-700 text-white transition-all shadow" onclick="closeNavDrawer(); openModal('consultation-modal');">
+<button class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-cognac-600 hover:bg-cognac-700 text-white transition-all shadow" data-bs-target="#consultation-modal" data-bs-toggle="modal" onclick="closeNavDrawer(); openModal('consultation-modal');">
 <span class="">Request Consultation</span>
 <i class="fa-solid fa-arrow-right text-[10px]"></i>
 </button>
-<button aria-label="Close Navigation Menu" class="w-10 h-10 rounded-full bg-forest-800 hover:bg-forest-700 text-linen-200 hover:text-white flex items-center justify-center transition-colors focus:outline-none" onclick="closeNavDrawer()">
+<button aria-label="Close Navigation Menu" class="w-10 h-10 rounded-full bg-forest-800 hover:bg-forest-700 text-linen-200 hover:text-white flex items-center justify-center transition-colors focus:outline-none" id="close-drawer-btn" onclick="closeNavDrawer()">
 <i class="fa-solid fa-xmark text-lg"></i>
 </button>
 </div>
@@ -111,35 +128,35 @@
 <div class="md:col-span-6 lg:col-span-5">
 <span class="text-[10px] tracking-widest uppercase font-bold text-cognac-400 block mb-4">Directory &amp; Navigation</span>
 <nav class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm">
-<a class="drawer-nav-item flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#overview">
+<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#overview">
 <span class="group-hover:translate-x-1 transition-transform font-medium">01. Overview</span>
 <i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
 </a>
-<a class="drawer-nav-item flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#advisory">
+<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#advisory">
 <span class="group-hover:translate-x-1 transition-transform font-medium">02. Advisory Practice</span>
 <i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
 </a>
-<a class="drawer-nav-item flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#portfolio">
+<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#portfolio">
 <span class="group-hover:translate-x-1 transition-transform font-medium">03. Curated Portfolio</span>
 <i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
 </a>
-<a class="drawer-nav-item flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#enclaves">
+<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#enclaves">
 <span class="group-hover:translate-x-1 transition-transform font-medium">04. Regional Enclaves</span>
 <i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
 </a>
-<a class="drawer-nav-item flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#transactions">
+<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#transactions">
 <span class="group-hover:translate-x-1 transition-transform font-medium">05. Recent Sales</span>
 <i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
 </a>
-<a class="drawer-nav-item flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#advisor">
+<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#advisor">
 <span class="group-hover:translate-x-1 transition-transform font-medium">06. Principal Advisor</span>
 <i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
 </a>
-<a class="drawer-nav-item flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#faq">
+<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#faq">
 <span class="group-hover:translate-x-1 transition-transform font-medium">07. Common Inquiries</span>
 <i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
 </a>
-<a class="drawer-nav-item flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#contact">
+<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#contact">
 <span class="group-hover:translate-x-1 transition-transform font-medium">08. Confidential Contact</span>
 <i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
 </a>
@@ -176,7 +193,7 @@
               Access curated off-market transactions across Research Triangle, Charlotte, and Blue Ridge enclaves.
             </p>
 </div>
-<button class="mt-4 w-full py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-linen-100 hover:bg-white text-forest-900 transition-colors" onclick="closeNavDrawer(); openModal('private-list-modal');">
+<button class="mt-4 w-full py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-linen-100 hover:bg-white text-forest-900 transition-colors" data-bs-target="#private-list-modal" data-bs-toggle="modal" onclick="closeNavDrawer(); openModal('private-list-modal');">
             Request Private Access
           </button>
 </div>
@@ -187,37 +204,37 @@
 <!-- END: Top Slide-Down Offcanvas Drawer Menu -->
 <!-- BEGIN: MainHeader -->
 <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-linen-50/90 frosted-glass border-b border-linen-200" id="site-header">
-<div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+<div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
 <!-- Brand Logo & Drawer Index Toggle -->
-<div class="flex items-center gap-4">
-<button aria-label="Open Full Index Menu" class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-linen-300 hover:border-forest-850 hover:bg-linen-100 text-charcoal-800 transition-all text-xs font-semibold tracking-wider uppercase group" onclick="openNavDrawer()">
+<div class="flex items-center gap-3 shrink-0 flex-shrink-0">
+<button aria-controls="top-nav-drawer" aria-label="Open Full Index Menu" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-linen-300 hover:border-forest-850 hover:bg-linen-100 text-charcoal-800 transition-all text-xs font-semibold tracking-wider uppercase group shrink-0" id="open-drawer-btn" onclick="openNavDrawer()">
 <i class="fa-solid fa-bars-staggered text-xs text-cognac-600 group-hover:rotate-12 transition-transform"></i>
 <span class="">Index</span>
 </button>
-<a class="flex items-center gap-3 group" data-purpose="brand-link" href="#overview">
-<div class="w-8 h-8 rounded-full bg-forest-850 flex items-center justify-center text-linen-100 transition-transform duration-300 group-hover:rotate-45">
+<a class="flex items-center gap-2.5 group header-scroll-link whitespace-nowrap" data-purpose="brand-link" href="#overview">
+<div class="w-8 h-8 rounded-full bg-forest-850 flex items-center justify-center text-linen-100 transition-transform duration-300 group-hover:rotate-45 shrink-0">
 <i class="fa-solid fa-compass text-xs text-cognac-400"></i>
 </div>
 <div class="flex flex-col">
-<span class="text-xl font-serif tracking-tight font-medium text-forest-900 group-hover:text-cognac-600 transition-colors">Avery Estate</span>
-<span class="text-[9px] tracking-widest uppercase font-semibold text-charcoal-500">North Carolina Advisory</span>
+<span class="text-lg font-serif tracking-tight font-medium text-forest-900 group-hover:text-cognac-600 transition-colors leading-none">Avery Estate</span>
+<span class="text-[9px] tracking-widest uppercase font-semibold text-charcoal-500 mt-0.5 leading-none">North Carolina Advisory</span>
 </div>
 </a>
 </div>
 <!-- Desktop Navigation Menu -->
-<nav class="hidden xl:flex items-center gap-7 text-xs tracking-wider uppercase font-semibold text-charcoal-700" data-purpose="desktop-nav">
-<a class="header-nav-link hover:text-cognac-600 transition-colors" href="#overview">Overview</a>
-<a class="header-nav-link hover:text-cognac-600 transition-colors" href="#advisory">Advisory</a>
-<a class="header-nav-link hover:text-cognac-600 transition-colors" href="#portfolio">Portfolio</a>
-<a class="header-nav-link hover:text-cognac-600 transition-colors" href="#enclaves">Enclaves</a>
-<a class="header-nav-link hover:text-cognac-600 transition-colors" href="#transactions">Transactions</a>
-<a class="header-nav-link hover:text-cognac-600 transition-colors" href="#advisor">Advisor</a>
-<a class="header-nav-link hover:text-cognac-600 transition-colors" href="#faq">FAQ</a>
-<a class="header-nav-link hover:text-cognac-600 transition-colors" href="#contact">Contact</a>
+<nav class="hidden xl:flex items-center gap-4 lg:gap-5 text-[11px] tracking-widest uppercase font-semibold text-charcoal-700 whitespace-nowrap" data-purpose="desktop-nav">
+<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#overview">Overview</a>
+<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#advisory">Advisory</a>
+<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#portfolio">Portfolio</a>
+<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#enclaves">Enclaves</a>
+<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#transactions">Transactions</a>
+<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#advisor">Advisor</a>
+<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#faq">FAQ</a>
+<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#contact">Contact</a>
 </nav>
 <!-- Action Button -->
-<div class="flex items-center gap-3">
-<button class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-cognac-600 hover:bg-cognac-700 text-white transition-all shadow-sm hover:shadow-md" data-purpose="header-cta" onclick="openModal('consultation-modal')">
+<div class="flex items-center gap-3 shrink-0 flex-shrink-0">
+<button class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-cognac-600 hover:bg-cognac-700 text-white transition-all shadow-sm hover:shadow-md whitespace-nowrap shrink-0" data-purpose="header-cta" onclick="openModal('consultation-modal')">
   Request Consultation
 </button>
 <!-- Quick Menu Toggle Icon for Mobile -->
@@ -245,7 +262,7 @@
             Avery represents discerning buyers, family offices, and corporate principals across Research Triangle, Charlotte, and the Blue Ridge with calm expertise.
           </p>
 <div class="flex flex-wrap items-center gap-4 mb-10 w-full sm:w-auto">
-<a class="header-nav-link inline-flex items-center justify-center px-7 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-forest-850 hover:bg-forest-900 text-white transition-all shadow hover:shadow-lg" href="#portfolio">
+<a class="header-scroll-link inline-flex items-center justify-center px-7 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-forest-850 hover:bg-forest-900 text-white transition-all shadow hover:shadow-lg" href="#portfolio">
               Browse Portfolio
             </a>
 <button class="inline-flex items-center justify-center px-7 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-linen-200 hover:bg-linen-300 text-charcoal-800 transition-colors" onclick="openModal('consultation-modal')">
@@ -269,7 +286,7 @@
 <!-- Main Architectural Card -->
 <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-charcoal-900 border border-linen-300">
 <div class="relative h-[380px] sm:h-[460px] w-full">
-<img alt="Ultra luxury modern architectural estate in Raleigh North Carolina" class="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA25foMzrdy4JAM19ZFWApMaGyPg8UcoUl0e19VW20-tDASEMvTUQaL2LqPZVUmIr35q9l1AJyB7LvyjQaIs8xzeh2zcFFxvI59Lzynnjj3Lg7EtvcAlMQxZzWgLJigYvBrZYqg1-hlvfIHDOEZxDb9ioxDAfutudPzOcieO8Lavsd78CB5aWO-rZXZ7Urrdx4uf16SSIZyq6uGu3FdFd6eXuT_pRHyVIGzofYgwYTW">
+<img alt="The Pavilion at Sycamore Creek • Raleigh Modern Architectural Estate" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkaEZ5ZQr0r5OyHQy27onLDuXQzov-owuQM2dX8b5JiS2m3twc4zjkxOJsel7jMhoO79kfXcjBp1ZNLq_saYvUtye113Dzl5m4mbHN9i-NueQ6AggI49YNIMthD-XbMym_6X-D1P3xB4cwicrBikRza573sSmKny4h91F0xSInMKCeOhuUW-RymUNAkHiW7_6mHZkCltIDBzeyQ7Cs34TNWNNcARdXaiipAd9wa3ee">
 <div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-transparent to-black/20"></div>
 <!-- Top Badge -->
 <div class="absolute top-4 left-4">
@@ -416,7 +433,7 @@
 <!-- Main Listing Card -->
 <div class="mb-10 rounded-2xl overflow-hidden bg-charcoal-900 text-white shadow-xl border border-linen-300 relative group" data-purpose="primary-listing-hero">
 <div class="relative h-[440px] sm:h-[560px] w-full overflow-hidden">
-<img alt="Prestonwood Architectural Modern luxury estate in Cary North Carolina" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdgGVWzRjwtLPYQ2tSKUriPuu4XnH3fiwGjT7PPss0XbLWpTv-bwgpdEY3vm-dfPTV7qrz6fcgZKfND5VOrOvOaY1p-Sjw7U7l3mt15ZKq7HFW0Au1mwXuT9mWGBBn_6SHKLTFWNfoJm5-JkO_dBYquj8AG21lYwAhTqNKt-nl3XnI9cGR_UnxYy2XTiaKVUgnJILMOamPslCc33UVeW7G-zjsps4_vxv_RKeiOy-x">
+<img alt="The Prestonwood Glasshouse • Cary Modern Architectural Glasshouse" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIdaHUKSwkjyYYDRiNaG6NQcWWlhyQtijRPBMsISuyiHMvFCo3UM8WRoUbbIUlDIH_j8DwMTCU5xfkDya-stl74e4umkdsopmSeXqTNzAWKT2AB3PpNLvmUVILklFKMseCqKEjVCc3321WMjZRfFxoLl-yKC8ScLSnGoA8Iu5_UVktq1X7VMc3auJKbW8EMMth4JfJfWGlbDYl3rHYDYzQtZUYHUmNZhyjNE8WR2RT">
 <div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-charcoal-900/20 to-transparent"></div>
 <!-- Top Badge -->
 <div class="absolute top-6 left-6">
@@ -454,7 +471,7 @@
 <!-- Card 1: Jordan Lake Waterfront -->
 <div class="rounded-2xl overflow-hidden bg-charcoal-900 text-white shadow-lg border border-linen-300 relative group">
 <div class="relative h-[340px] sm:h-[400px] w-full overflow-hidden">
-<img alt="Bespoke luxury waterfront manor at Governors Club Chapel Hill Jordan Lake North Carolina" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdHvmqrS7ELuryndGJtxeeMcuqc5on89L0EfOAyA8PCVtfsathAfFIxQ0AItEZgyM6lULbrbm8mY-l5_tik3OF2XQPHait_64HSzAwxIMaFopHCWzWiyMuueGY1MEwcL0CDuIYMEVtTRVm04_N3ZPI9TdqmRX499oPUVcLvZ4D-VLaI9T9NPVm4Qh9QmJr3yqqh06GOgwx1CgPEnzMJYyIL1-ORJrKov4pZrRKrUzo">
+<img alt="Governors Club Point &amp; Private Dock • Lake Jordan Waterfront Manor" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHyCzt6GORf0x3wLyZ7kvmYZC1hiHuLdglNIKC6mxoIZ2ixcuOV0RjKRGbrhfQkz1jZAqx6y02KKDGmRzvuIEqm3f8d6egTsLGk4s7aiZSvcst9pHee0gbhV5PKYCZjmySyjzVRoVX5CLIaq_OR0qyba6JxaHMZbhP1P2LF6ERa-y3P-9kKslcfT9N0AT3nVCHGXNKR716654yhfI2mVMK3Y8eK7Fr2rfvuWu2Njnx">
 <div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-transparent to-black/20"></div>
 <div class="absolute top-4 left-4">
 <span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-white/90 frosted-glass text-forest-900">
@@ -474,7 +491,7 @@
 <!-- Card 2: Modern Estate in Raleigh -->
 <div class="rounded-2xl overflow-hidden bg-charcoal-900 text-white shadow-lg border border-linen-300 relative group">
 <div class="relative h-[340px] sm:h-[400px] w-full overflow-hidden">
-<img alt="Ultra-luxury modern bespoke stone and cedar estate in Raleigh North Carolina" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-kjl6HpwKihPPzygqOe2M4LHzAzIFg83enrcH9IGU5YlRAqdGnXMlAqBRyXf-_KosR2dTIxQOi7Yu_cykmEwTkTv-c3bayg588rPSIa3a6JtOxrRsCHXDTplaKbkqc6TTN6VWc7PX94eQkhz9zSRw84RergRPJm3043Sv9IB3RwWlSqLSUwmeI-2JWqpkFc9X_SnbEsFF93stTCE1fhAGzt5IrBJkaKPC5JJbqqom">
+<img alt="The Cedar Stone Contemporary • North Raleigh Architectural Estate" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDj9tFoUHJQWKOzOeIx35wVn-WSThr4Am9eRuRe0-_HGQrFzIVjdZRQcfBFQv1t6wjT3l5o7gmbw4ObyIo-Y-apFSj4wHdaiWYt4A2dVFY0tbo7RAr6jDWeZRiCwuOyaGuzPldqfcmkAg5zWg4VLWhzn5hjH3N6qvxIyqSwE3uV7U0Ak6Puhv3AFv06Qs7szycSuJrd8QoNtiBPDznJCR03mHnf_IUCjVpZpOn1jIn">
 <div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-transparent to-black/20"></div>
 <div class="absolute top-4 left-4">
 <span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-white/90 frosted-glass text-forest-900">
@@ -587,9 +604,9 @@
 <!-- END: RecentDiscreetSalesSection -->
 <!-- BEGIN: CinematicParallaxBreak -->
 <section class="relative py-32 lg:py-44 bg-forest-900 overflow-hidden" data-purpose="cinematic-break">
-<!-- Background Image with Gradient Overlay (Updated with Bespoke 4K Image IMAGE_59) -->
+<!-- Background Image with Gradient Overlay -->
 <div class="absolute inset-0">
-<img alt="Ultra-luxury modern North Carolina estate at golden hour dusk" class="w-full h-full object-cover object-center filter brightness-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1JnOXFuFio78N7gVYNzNz-XLSjETK4D_17bk8s1PxvmTWuJQaTQ_xZHVsiM6gGWmjyoPQW4Q_ivKdEz7rlLHdXXOOoCOkVLPICTF_7p9lav_4wMRyuSQavSk0fukOdYA7GtQoiVuAnde7tZajOPIc0vW-eGG35UentUuPVsA8dk4uPqCw4jTaoNnJ8N_xS8fBsW1gP22WBjG2e3hxF4GDrdgkfgQst24HitBpDteg">
+<img alt="Ultra-luxury modern North Carolina estate at golden hour dusk" class="w-full h-full object-cover object-center filter brightness-90" src="https://lh3.googleusercontent.com/aida/AEtjO1VrefqEUH7avKipjbFI5SsCSlFh85DVWZglGsj1wRdHz2KR1wtans1SEnlxekG_kZywAcDLmQZaNrVOabSECC9J70aT63oV98ZZ5Q8fwma4yaqRDGxW0khlLeDIH8zZSaRaUeg-Lw2_fqQHGWx1ESfWBWUD-2eY4NLklskfiAWqbD-zr3Dxq859j4y8oRh7Ak45Ih_uvcJXS64aLD7eJUrasVzNK_vVuDyj-wlIGw_7qg">
 <div class="absolute inset-0 bg-forest-900/65 backdrop-blur-[1px]"></div>
 </div>
 <!-- Centered Editorial Text -->
@@ -623,12 +640,12 @@
           Avery knows the quiet avenues, private airfield corridors, lake access channels, and executive commercial districts that make each Carolina pocket distinct.
         </p>
 </div>
-<!-- 3-Column Lifestyle Grid (Populated with 4K Bespoke Imagery IMAGE_61, IMAGE_60, IMAGE_62) -->
+<!-- 3-Column Lifestyle Grid -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-purpose="enclaves-grid">
-<!-- Enclave 1: Research Triangle (Updated with IMAGE_61) -->
+<!-- Enclave 1: Research Triangle -->
 <div class="rounded-2xl overflow-hidden bg-white border border-linen-300 shadow-sm flex flex-col group hover:shadow-md transition-shadow">
 <div class="relative h-64 overflow-hidden bg-forest-900">
-<img alt="Bespoke luxury executive commercial office pavilion and modern residential compound in Research Triangle Raleigh North Carolina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxFGn7OcKrKRDkHTyaYmbX4E04YJumK1RV1V0PmYaxK90E9yuUaE_cBYPTyV7xBJ-d5kBb0dTHrktQtLMk3A4c_76ebf4kpe7Tvp5v1Zx75LfR-FkpWIINmiSogyWogwVwMMkPnLeqtFXmIaDut1TTdbtdqQuGExi6vnufBAeWlWCyf2E0ozbUIW_MQRQTG1E_jxRTkzlBmxM4oxQmRCewL0vj0GwrCrKT2_cVe0WP">
+<img alt="Bespoke luxury executive commercial office pavilion and modern residential compound in Research Triangle Raleigh North Carolina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1V5XHbocuXuOND_R5RXaxR7DD6lAk-2GDpUQklGBJwh6x6sHCdPGEsH5_vV2Yc3vm2PV37hzyQYfXRtPIK3zzDd28Jxhrw9j_QKhx-LdzUppq8AiWxDYCNIITVWWMSGAhH3lewNiDme9lX3aIMBQeyBYc9IXB21cLoLvTm6Mj3czmKTrNycf0-Se9YrJfJ3jhRdZHL1570luwo3F-kiF8Xic3nlE1vcGz3KvMibyfatuA">
 <div class="absolute bottom-3 left-4">
 <span class="px-2.5 py-1 rounded bg-black/70 frosted-glass text-[10px] font-semibold uppercase tracking-wider text-white">
                 Raleigh • Cary • Chapel Hill
@@ -648,10 +665,10 @@
 </div>
 </div>
 </div>
-<!-- Enclave 2: Lake Norman & Charlotte (Updated with IMAGE_60) -->
+<!-- Enclave 2: Lake Norman & Charlotte -->
 <div class="rounded-2xl overflow-hidden bg-white border border-linen-300 shadow-sm flex flex-col group hover:shadow-md transition-shadow">
 <div class="relative h-64 overflow-hidden bg-forest-900">
-<img alt="Luxury waterfront contemporary estate on Lake Norman Charlotte North Carolina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMVZmBaAsemZMk_sj_SzOF1FU1Vfu_mRj_zN_pw58eqQR-R7WRQgztA7RompQn2dJW-3H2DZ9-P0tWWPAsewpA1IRxQu514zhh_ezPX1Um8GsKP8OJ_wgynW68dLyvVgtivhqR37asxG7QCN8up1R3AJHwLe4eNksoSL7ZyoPVEqF2ug8nFft8k44A_3pgJGD3FT2keVs74Z0Q-eLu3GlZckgIiOmeUqBNi9lkqs6y">
+<img alt="Luxury waterfront contemporary estate on Lake Norman Charlotte North Carolina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1XQqGb8-earIibdjT6otl28YX2Z1O2zoQ5B01cp2lDnDrKf4souBznroyy2MeiDVSHbUgkXQKmC6YaOY88G8kMd1GsqjP4Xvs7D8k_hVYieEW4U9E3bjXwvzyPjjY51cYcnhTBElN-WMGVNvkdJGIMqffujm9iYEJln1ww9BFNGZsoXidYsjglJtT9ivF10uIgu5ofhnRDqs6wnH_4eD1HGxo89phPKHp-PRp7-AeUznw">
 <div class="absolute bottom-3 left-4">
 <span class="px-2.5 py-1 rounded bg-black/70 frosted-glass text-[10px] font-semibold uppercase tracking-wider text-white">
                 Lake Norman • Charlotte Metro
@@ -671,10 +688,10 @@
 </div>
 </div>
 </div>
-<!-- Enclave 3: High Country & Mountain Escapes (Updated with IMAGE_62) -->
+<!-- Enclave 3: High Country & Mountain Escapes -->
 <div class="rounded-2xl overflow-hidden bg-white border border-linen-300 shadow-sm flex flex-col group hover:shadow-md transition-shadow">
 <div class="relative h-64 overflow-hidden bg-forest-900">
-<img alt="Bespoke modern luxury mountain timber and stone architectural estate retreat in Blue Ridge Mountains Highlands North Carolina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChvHlYTApmS-UWzzki1nf3hkV5JBpZvrFlHu9vS0272HrkFpHF7TtuQUJkyYI8Ehex5hyR_gffy37QY9tq23wLEGSFP7Y8XfIw8SXfTVFWuYQDCIZiwSFKALgpqSZKYj4PrSGh-E4OO43wfhldQg_b8X0VBy2WX4Ld_nqTZRrvljbNjYX8mDCLW5QW7LjmWMDD0OJRbTisVaFjFZxE3lQqLk3sxSnFbD1zPKLg_xjG">
+<img alt="Bespoke modern luxury mountain timber and stone architectural estate retreat in Blue Ridge Mountains Highlands North Carolina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1WIYe7tyghcF0P9GIRkfDdYU8x6ELIaRix-ZoIe1yIyTrloqaABu2p8OtbL1E_AFItA02-Ad6IRkfXTGa2KHDPME7OnplYrn3g4BmN9mwjyDlFSmxssxnIKWC5APlqgYC4ltMnNmcdvT7DTIeKOLTUYatfMXdHEeFWkmjmBsiCcG0uU3UzwBbEXObWxiTmAHC84SSlcsHrfa0yN19hyUJPpss5G_MZdlaujl05rukp9sQ">
 <div class="absolute bottom-3 left-4">
 <span class="px-2.5 py-1 rounded bg-black/70 frosted-glass text-[10px] font-semibold uppercase tracking-wider text-white">
                 Asheville • High Country
@@ -702,11 +719,11 @@
 <section class="py-24 bg-linen-100/60 border-b border-linen-200" id="advisor">
 <div class="max-w-7xl mx-auto px-6 lg:px-12">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-<!-- Advisor Portrait Column with Verified Credentials Badge (Updated with IMAGE_63 Executive Portrait) -->
+<!-- Advisor Portrait Column with Verified Credentials Badge -->
 <div class="lg:col-span-5 relative" data-purpose="advisor-portrait">
 <div class="relative rounded-2xl overflow-hidden shadow-xl bg-forest-900 border border-linen-300">
 <div class="aspect-[4/5] w-full">
-<img alt="Sarah Avery, Principal Broker &amp; Managing Director" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdSEuxMSHJvhJw0jSFa-rMutxyvEklci5SA20XsS9ejUC1IR6luPZeQbtj27QtfQ5aSCHgKKocaGlU6aOOOyyIQGygH4S5xVpO1e4ivzdkyIElYl8WNjoUN9A-hjVFuCil3zqPGvyJl5uBUaXF89SN8zDk_2XkiD-N4KpFgyGU44adjPq2L6AW5Vv22jWFfPohvOGWeRHB4UTjx3hN1Le3sYToOW95ztZozSie-DvU">
+<img alt="Sarah Avery, Principal Broker &amp; Managing Director" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida/AEtjO1U7hnCkjAnbJ5lf-e0iYyviirxlm0R9UWd0_RVlbH-6qpYenYTmJc68gs2br_Jg2ghyNb80j4Sb6eqby0LuEE0Nn6xuBeXWvBhamK-fOLjm-SihWzy1wWhOZVVvR2kic9ViYSkZfA3qb6mzE0Gxjgjz4s63GDDRcCbmtH1zj25Dtvws-BJpcgb1_jmlnggVko-QneeimbSw_5b2gwUiick23ql4-LO5IAD8FTQuVaiqVw">
 </div>
 <!-- Credential Overlay Card -->
 <div class="absolute bottom-4 left-4 right-4 bg-white/95 frosted-glass rounded-xl p-4 shadow-lg border border-linen-200">
@@ -797,9 +814,9 @@
             Consistent asset valuation avoiding repeated public price cuts.
           </p>
 </div>
-<!-- Tile 3: Showcase Property Visual Card (Updated with Crisp 4K Image IMAGE_13) -->
+<!-- Tile 3: Showcase Property Visual Card -->
 <div class="md:col-span-4 relative rounded-2xl overflow-hidden min-h-[260px] border border-forest-700">
-<img alt="Discreetly Underwritten North Carolina Architectural Assets" class="w-full h-full object-cover filter brightness-90" src="https://lh3.googleusercontent.com/aida/AEtjO1U4At4aHY91O0McQUjb6ARN0XHHduyltCObJDFyc1PC_KG1tuWrdrHDyxs5ImrRq7WPyexCZBH8E__-PKX1YOU6JyzgPpYCVTmMWM0lB93IBQ33b2a1oKN8VaTI4j7NrzhXVZNh9lrMCF09KArV35lw85sZnnT2k1Qvn8QFmuFFTwlPuwKQW8e6ri5hzMVLMyW8nGiHDj6_tOvAvw0RirICjP-HtPTJ-To-IKB5j39rWg">
+<img alt="Discreetly Underwritten North Carolina Architectural Assets" class="w-full h-full object-cover filter brightness-90" src="https://lh3.googleusercontent.com/aida/AEtjO1VrefqEUH7avKipjbFI5SsCSlFh85DVWZglGsj1wRdHz2KR1wtans1SEnlxekG_kZywAcDLmQZaNrVOabSECC9J70aT63oV98ZZ5Q8fwma4yaqRDGxW0khlLeDIH8zZSaRaUeg-Lw2_fqQHGWx1ESfWBWUD-2eY4NLklskfiAWqbD-zr3Dxq859j4y8oRh7Ak45Ih_uvcJXS64aLD7eJUrasVzNK_vVuDyj-wlIGw_7qg">
 <div class="absolute inset-0 bg-gradient-to-t from-forest-900/90 via-transparent to-black/30"></div>
 <div class="absolute bottom-6 left-6 right-6">
 <span class="text-[10px] tracking-widest uppercase font-semibold text-cognac-400 block">Private Portfolio</span>
@@ -1134,19 +1151,19 @@
 <div>
 <span class="text-[10px] tracking-widest uppercase font-semibold text-cognac-400 block mb-4">Practice Areas</span>
 <ul class="space-y-2.5 text-linen-300 font-light">
-<li class=""><a class="header-nav-link hover:text-white transition-colors" href="#portfolio">Residential Estates ($3M+)</a></li>
+<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#portfolio">Residential Estates ($3M+)</a></li>
 <li class=""><a class="hover:text-white transition-colors" href="javascript:void(0)" onclick="openModal('private-list-modal')">Private Placement Desk</a></li>
-<li class=""><a class="header-nav-link hover:text-white transition-colors" href="#transactions">Commercial &amp; Medical Suites</a></li>
-<li class=""><a class="header-nav-link hover:text-white transition-colors" href="#transactions">1031 Tax-Deferred Exchanges</a></li>
+<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#transactions">Commercial &amp; Medical Suites</a></li>
+<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#transactions">1031 Tax-Deferred Exchanges</a></li>
 </ul>
 </div>
 <div>
 <span class="text-[10px] tracking-widest uppercase font-semibold text-cognac-400 block mb-4">North Carolina Enclaves</span>
 <ul class="space-y-2.5 text-linen-300 font-light">
-<li class=""><a class="header-nav-link hover:text-white transition-colors" href="#enclaves">Raleigh / ITB / Umstead</a></li>
-<li class=""><a class="header-nav-link hover:text-white transition-colors" href="#enclaves">Chapel Hill / Governors Club</a></li>
-<li class=""><a class="header-nav-link hover:text-white transition-colors" href="#enclaves">Cary / Prestonwood</a></li>
-<li class=""><a class="header-nav-link hover:text-white transition-colors" href="#enclaves">Lake Norman &amp; Charlotte</a></li>
+<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#enclaves">Raleigh / ITB / Umstead</a></li>
+<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#enclaves">Chapel Hill / Governors Club</a></li>
+<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#enclaves">Cary / Prestonwood</a></li>
+<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#enclaves">Lake Norman &amp; Charlotte</a></li>
 </ul>
 </div>
 <div>
@@ -1256,6 +1273,8 @@
 </div>
 </div>
 <!-- END: InteractiveModalWindows -->
+<!-- Bootstrap 5 Bundle JS -->
+<script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- BEGIN: InteractiveScripts -->
 <script data-purpose="accordion-and-modals">
     // Top Slide-Down Offcanvas Drawer Functions
@@ -1265,6 +1284,7 @@
       if (backdrop && drawer) {
         backdrop.classList.remove('opacity-0', 'pointer-events-none');
         backdrop.classList.add('opacity-100');
+        backdrop.setAttribute('aria-hidden', 'false');
         drawer.classList.remove('-translate-y-full');
         drawer.classList.add('translate-y-0');
         document.body.style.overflow = 'hidden';
@@ -1277,79 +1297,12 @@
       if (backdrop && drawer) {
         backdrop.classList.remove('opacity-100');
         backdrop.classList.add('opacity-0', 'pointer-events-none');
+        backdrop.setAttribute('aria-hidden', 'true');
         drawer.classList.remove('translate-y-0');
         drawer.classList.add('-translate-y-full');
         document.body.style.overflow = '';
       }
     }
-
-    // Close drawer on Escape key
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeNavDrawer();
-        closeModal('consultation-modal');
-        closeModal('private-list-modal');
-      }
-    });
-
-    // Smooth Scroll to Element with Fixed Header Offset
-    function smoothScrollToElement(targetId) {
-      if (!targetId || targetId === '#') return;
-      const id = targetId.startsWith('#') ? targetId.substring(1) : targetId;
-      const targetElement = document.getElementById(id);
-      if (targetElement) {
-        const headerOffset = 84;
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
-    }
-
-    // Attach smooth scrolling to all internal anchor links in header and drawer
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId && targetId !== '#') {
-          e.preventDefault();
-          closeNavDrawer();
-          smoothScrollToElement(targetId);
-        }
-      });
-    });
-
-    // FAQ Accordion Interaction
-    document.querySelectorAll('.faq-trigger').forEach(button => {
-      button.addEventListener('click', () => {
-        const item = button.closest('.faq-item');
-        const content = item.querySelector('.faq-content');
-        const icon = item.querySelector('.faq-icon i');
-        const isExpanded = button.getAttribute('aria-expanded') === 'true';
-
-        // Close all other accordions
-        document.querySelectorAll('.faq-item').forEach(otherItem => {
-          if (otherItem !== item) {
-            otherItem.querySelector('.faq-content').classList.add('hidden');
-            otherItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
-            otherItem.querySelector('.faq-icon i').className = 'fa-solid fa-plus';
-          }
-        });
-
-        // Toggle current item
-        if (isExpanded) {
-          content.classList.add('hidden');
-          button.setAttribute('aria-expanded', 'false');
-          icon.className = 'fa-solid fa-plus';
-        } else {
-          content.classList.remove('hidden');
-          button.setAttribute('aria-expanded', 'true');
-          icon.className = 'fa-solid fa-minus';
-        }
-      });
-    });
 
     // Modal Control Functions
     function openModal(modalId) {
@@ -1368,20 +1321,112 @@
       }
     }
 
-    // Close modal on click outside content
-    window.addEventListener('click', (e) => {
-      if (e.target.id === 'consultation-modal') closeModal('consultation-modal');
-      if (e.target.id === 'private-list-modal') closeModal('private-list-modal');
-    });
+    // Smooth Scroll to Element with Fixed Header Offset
+    function smoothScrollToElement(targetId) {
+      if (!targetId || targetId === '#') return;
+      const id = targetId.startsWith('#') ? targetId.substring(1) : targetId;
+      const targetElement = document.getElementById(id);
+      if (targetElement) {
+        const header = document.getElementById('site-header');
+        const headerOffset = header ? header.offsetHeight + 16 : 84;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-    // Header subtle elevation on scroll
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('site-header');
-      if (window.scrollY > 20) {
-        header.classList.add('shadow-sm');
-      } else {
-        header.classList.remove('shadow-sm');
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
       }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Backdrop click handler
+      const scrim = document.getElementById('drawer-scrim');
+      if (scrim) {
+        scrim.addEventListener('click', closeNavDrawer);
+      }
+
+      // Close drawer on Escape key
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeNavDrawer();
+          closeModal('consultation-modal');
+          closeModal('private-list-modal');
+        }
+      });
+
+      // Attach smooth scrolling and auto-close to all drawer scroll links
+      document.querySelectorAll('.drawer-scroll-link').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          if (targetId && targetId.startsWith('#')) {
+            e.preventDefault();
+            closeNavDrawer();
+            setTimeout(() => {
+              smoothScrollToElement(targetId);
+            }, 180);
+          }
+        });
+      });
+
+      // Attach smooth scrolling to all other internal header/anchor links
+      document.querySelectorAll('.header-scroll-link, a[href^="#"]:not(.drawer-scroll-link)').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          if (targetId && targetId.startsWith('#') && targetId.length > 1) {
+            e.preventDefault();
+            smoothScrollToElement(targetId);
+          }
+        });
+      });
+
+      // FAQ Accordion Interaction
+      document.querySelectorAll('.faq-trigger').forEach(button => {
+        button.addEventListener('click', () => {
+          const item = button.closest('.faq-item');
+          const content = item.querySelector('.faq-content');
+          const icon = item.querySelector('.faq-icon i');
+          const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+          // Close all other accordions
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.querySelector('.faq-content').classList.add('hidden');
+              otherItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+              otherItem.querySelector('.faq-icon i').className = 'fa-solid fa-plus';
+            }
+          });
+
+          // Toggle current item
+          if (isExpanded) {
+            content.classList.add('hidden');
+            button.setAttribute('aria-expanded', 'false');
+            icon.className = 'fa-solid fa-plus';
+          } else {
+            content.classList.remove('hidden');
+            button.setAttribute('aria-expanded', 'true');
+            icon.className = 'fa-solid fa-minus';
+          }
+        });
+      });
+
+      // Close modals when clicking outside modal content
+      window.addEventListener('click', (e) => {
+        if (e.target.id === 'consultation-modal') closeModal('consultation-modal');
+        if (e.target.id === 'private-list-modal') closeModal('private-list-modal');
+      });
+
+      // Header subtle elevation on scroll
+      window.addEventListener('scroll', () => {
+        const header = document.getElementById('site-header');
+        if (header) {
+          if (window.scrollY > 20) {
+            header.classList.add('shadow-sm');
+          } else {
+            header.classList.remove('shadow-sm');
+          }
+        }
+      });
     });
   </script>
 <!-- END: InteractiveScripts -->
