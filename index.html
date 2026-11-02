@@ -1,1435 +1,822 @@
-<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Avery Estate | North Carolina Residential &amp; Commercial Advisory</title>
-<!-- Bootstrap 5 CSS -->
-<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet">
-<!-- Tailwind CSS CDN with Forms & Container Queries -->
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Avery Estate | Los Angeles &amp; Southern California Luxury Real Estate</title>
+<!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Google Fonts: Newsreader (Editorial Serif) and Plus Jakarta Sans (Clean Modern Body) -->
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
-<!-- Font Awesome Icons -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<!-- Tailwind Configuration -->
 <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            linen: {
-              50: '#faf9f7',
-              100: '#f5f3ef',
-              200: '#edebe5',
-              300: '#e1ded6',
-              400: '#c5c0b4'
-            },
-            forest: {
-              900: '#0e221b',
-              850: '#122b22',
-              800: '#183329',
-              700: '#224639',
-              600: '#2f5b4a'
-            },
-            cognac: {
-              400: '#c77d4f',
-              500: '#b36b3f',
-              600: '#9e5932',
-              700: '#844726'
-            },
-            charcoal: {
-              900: '#171816',
-              800: '#262725',
-              700: '#3d3e3b',
-              500: '#6f706d'
+            brand: {
+              cream: '#F7F4EE',
+              sand: '#EFEBE1',
+              card: '#FBF9F5',
+              dark: '#14271E',
+              darker: '#0F1E17',
+              forest: '#1D3528',
+              rust: '#B85D36',
+              rustLight: '#C86D46',
+              taupe: '#7A756D',
+              border: '#E4DFD3',
+              borderDark: '#233C2F'
             }
           },
           fontFamily: {
-            serif: ['"Newsreader"', 'Georgia', 'serif'],
-            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
           }
         }
       }
     }
   </script>
-<!-- Custom Core Styling -->
-<style data-purpose="typography">
-    .font-serif-italic {
-      font-family: 'Newsreader', serif;
-      font-style: italic;
-      font-weight: 400;
+<!-- BEGIN: Custom Style Overrides -->
+<style data-purpose="base-styling">
+    body {
+      background-color: #F7F4EE;
+      color: #1A1A1A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    ::selection {
-      background-color: #b36b3f;
-      color: #ffffff;
+    .serif-display {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      letter-spacing: -0.02em;
     }
-    /* Prevent Bootstrap base overrides on specific anchor styles */
-    a {
-      text-decoration: none;
-      color: inherit;
+    /* Smooth drawer slide transition */
+    #drawer-menu {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    a:hover {
-      color: inherit;
-    }
-  </style>
-<style data-purpose="layout-effects">
-    /* Subtle noise texture simulation and smooth transitions */
-    .frosted-glass {
+    .backdrop-blur-nav {
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background-color: #edebe5;
-      border-radius: 9999px;
-    }
-    /* Offcanvas Top Drawer Custom Transitions */
-    #nav-drawer-backdrop {
-      transition: opacity 0.4s ease-in-out;
-    }
-    #top-nav-drawer {
-      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Accordion styles */
+    .faq-answer {
+      transition: max-height 0.3s ease-out, opacity 0.25s ease-out;
     }
   </style>
+<!-- END: Custom Style Overrides -->
 </head>
-<body class="bg-linen-50 text-charcoal-800 font-sans antialiased selection:bg-cognac-500 selection:text-white" id="overview">
-<!-- BEGIN: Top Slide-Down Offcanvas Drawer Menu -->
-<div aria-hidden="true" class="fixed inset-0 z-[60] pointer-events-none opacity-0" id="nav-drawer-backdrop">
-<div class="absolute inset-0 bg-charcoal-900/60 backdrop-blur-sm pointer-events-auto" id="drawer-scrim"></div>
-<div aria-label="Index Navigation Drawer" class="relative w-full bg-forest-900 text-linen-100 border-b border-forest-700/80 shadow-2xl transform -translate-y-full pointer-events-auto max-h-[92vh] overflow-y-auto" id="top-nav-drawer" role="dialog">
-<div class="max-w-7xl mx-auto px-6 lg:px-12 py-8 lg:py-12">
-<!-- Drawer Header Bar -->
-<div class="flex items-center justify-between pb-6 border-b border-forest-800">
-<a class="flex items-center gap-3 group drawer-scroll-link" href="#overview">
-<div class="w-9 h-9 rounded-full bg-forest-800 flex items-center justify-center text-linen-100 transition-transform duration-300 group-hover:rotate-45">
-<i class="fa-solid fa-compass text-sm text-cognac-400"></i>
-</div>
-<div class="flex flex-col">
-<span class="text-2xl font-serif tracking-tight font-medium text-linen-50">Avery Estate</span>
-<span class="text-[9px] tracking-widest uppercase font-semibold text-cognac-400">North Carolina Advisory Index</span>
-</div>
+<body class="bg-brand-cream text-[#202020] antialiased selection:bg-brand-rust selection:text-white">
+<!-- BEGIN: Sticky Mobile Navigation -->
+<header class="sticky top-0 z-40 bg-[#F7F4EE]/90 backdrop-blur-nav border-b border-brand-border px-4 py-3.5 flex items-center justify-between transition-colors">
+<a class="flex items-center space-x-2.5 group" href="#">
+<!-- Minimalist architectural luxury icon -->
+<span class="w-7 h-7 rounded-full bg-brand-dark text-brand-cream flex items-center justify-center font-serif text-sm font-semibold tracking-wider">A</span>
+<span class="font-serif text-xl tracking-tight font-medium text-brand-dark uppercase">Avery Estate</span>
 </a>
-<div class="flex items-center gap-4">
-<button class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-cognac-600 hover:bg-cognac-700 text-white transition-all shadow" data-bs-target="#consultation-modal" data-bs-toggle="modal" onclick="closeNavDrawer(); openModal('consultation-modal');">
-<span class="">Request Consultation</span>
-<i class="fa-solid fa-arrow-right text-[10px]"></i>
+<div class="flex items-center space-x-2.5">
+<a class="hidden xs:inline-flex text-xs tracking-wider uppercase font-semibold px-3 py-1.5 rounded-full bg-brand-dark text-white hover:bg-brand-forest transition" href="#consultation">
+        Book Consult
+      </a>
+<!-- Hamburger Toggle Button -->
+<button aria-label="Open Navigation Menu" class="p-2 text-brand-dark rounded-md hover:bg-brand-sand transition" id="open-drawer-btn" type="button">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<line x1="4" x2="20" y1="7" y2="7"></line>
+<line x1="4" x2="20" y1="12" y2="12"></line>
+<line x1="8" x2="20" y1="17" y2="17"></line>
+</svg>
 </button>
-<button aria-label="Close Navigation Menu" class="w-10 h-10 rounded-full bg-forest-800 hover:bg-forest-700 text-linen-200 hover:text-white flex items-center justify-center transition-colors focus:outline-none" id="close-drawer-btn" onclick="closeNavDrawer()">
-<i class="fa-solid fa-xmark text-lg"></i>
-</button>
-</div>
-</div>
-<!-- Drawer Content Grid -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pt-8">
-<!-- Navigation Index Links -->
-<div class="md:col-span-6 lg:col-span-5">
-<span class="text-[10px] tracking-widest uppercase font-bold text-cognac-400 block mb-4">Directory &amp; Navigation</span>
-<nav class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm">
-<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#overview">
-<span class="group-hover:translate-x-1 transition-transform font-medium">01. Overview</span>
-<i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
-</a>
-<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#advisory">
-<span class="group-hover:translate-x-1 transition-transform font-medium">02. Advisory Practice</span>
-<i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
-</a>
-<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#portfolio">
-<span class="group-hover:translate-x-1 transition-transform font-medium">03. Curated Portfolio</span>
-<i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
-</a>
-<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#enclaves">
-<span class="group-hover:translate-x-1 transition-transform font-medium">04. Regional Enclaves</span>
-<i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
-</a>
-<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#transactions">
-<span class="group-hover:translate-x-1 transition-transform font-medium">05. Recent Sales</span>
-<i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
-</a>
-<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#advisor">
-<span class="group-hover:translate-x-1 transition-transform font-medium">06. Principal Advisor</span>
-<i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
-</a>
-<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#faq">
-<span class="group-hover:translate-x-1 transition-transform font-medium">07. Common Inquiries</span>
-<i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
-</a>
-<a class="drawer-scroll-link flex items-center justify-between py-2 border-b border-forest-800/80 text-linen-200 hover:text-white group" href="#contact">
-<span class="group-hover:translate-x-1 transition-transform font-medium">08. Confidential Contact</span>
-<i class="fa-solid fa-arrow-right text-[10px] text-forest-700 group-hover:text-cognac-400 transition-colors"></i>
-</a>
-</nav>
-</div>
-<!-- Regional Offices & Direct Contact -->
-<div class="md:col-span-6 lg:col-span-4 bg-forest-850/70 p-6 rounded-2xl border border-forest-800 flex flex-col justify-between">
-<div>
-<span class="text-[10px] tracking-widest uppercase font-bold text-cognac-400 block mb-3">Direct Practice Contacts</span>
-<div class="space-y-4 text-xs font-light">
-<div>
-<p class="font-medium text-white mb-0.5">Raleigh Flagship Office</p>
-<p class="text-linen-300">4208 Six Forks Road, Suite 1400 • Raleigh, NC 27609</p>
-<a class="text-cognac-400 hover:text-cognac-300 font-normal inline-block mt-0.5" href="tel:9195550148">(919) 555-0148</a>
-</div>
-<div class="pt-3 border-t border-forest-800">
-<p class="font-medium text-white mb-0.5">Charlotte Private Annex</p>
-<p class="text-linen-300">201 S. College Street, 28th Floor • Charlotte, NC 28244</p>
-<a class="text-cognac-400 hover:text-cognac-300 font-normal inline-block mt-0.5" href="tel:7045550192">(704) 555-0192</a>
-</div>
-</div>
-</div>
-<div class="pt-4 border-t border-forest-800 mt-4 flex items-center justify-between text-xs">
-<span class="text-linen-400">Confidential Desk:</span>
-<a class="text-linen-200 hover:text-white underline underline-offset-4" href="mailto:advisory@averyestate.com">advisory@averyestate.com</a>
-</div>
-</div>
-<!-- Drawer Quick Callout -->
-<div class="hidden lg:flex lg:col-span-3 flex-col justify-between bg-forest-800/40 p-6 rounded-2xl border border-forest-800">
-<div>
-<span class="text-[10px] tracking-widest uppercase font-bold text-linen-300 block mb-2">Private Placement</span>
-<h4 class="font-serif text-lg text-linen-50 mb-2">Unpublished North Carolina Portfolios</h4>
-<p class="text-xs text-linen-300 font-light leading-relaxed">
-              Access curated off-market transactions across Research Triangle, Charlotte, and Blue Ridge enclaves.
-            </p>
-</div>
-<button class="mt-4 w-full py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-linen-100 hover:bg-white text-forest-900 transition-colors" data-bs-target="#private-list-modal" data-bs-toggle="modal" onclick="closeNavDrawer(); openModal('private-list-modal');">
-            Request Private Access
-          </button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- END: Top Slide-Down Offcanvas Drawer Menu -->
-<!-- BEGIN: MainHeader -->
-<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-linen-50/90 frosted-glass border-b border-linen-200" id="site-header">
-<div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-<!-- Brand Logo & Drawer Index Toggle -->
-<div class="flex items-center gap-3 shrink-0 flex-shrink-0">
-<button aria-controls="top-nav-drawer" aria-label="Open Full Index Menu" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-linen-300 hover:border-forest-850 hover:bg-linen-100 text-charcoal-800 transition-all text-xs font-semibold tracking-wider uppercase group shrink-0" id="open-drawer-btn" onclick="openNavDrawer()">
-<i class="fa-solid fa-bars-staggered text-xs text-cognac-600 group-hover:rotate-12 transition-transform"></i>
-<span class="">Index</span>
-</button>
-<a class="flex items-center gap-2.5 group header-scroll-link whitespace-nowrap" data-purpose="brand-link" href="#overview">
-<div class="w-8 h-8 rounded-full bg-forest-850 flex items-center justify-center text-linen-100 transition-transform duration-300 group-hover:rotate-45 shrink-0">
-<i class="fa-solid fa-compass text-xs text-cognac-400"></i>
-</div>
-<div class="flex flex-col">
-<span class="text-lg font-serif tracking-tight font-medium text-forest-900 group-hover:text-cognac-600 transition-colors leading-none">Avery Estate</span>
-<span class="text-[9px] tracking-widest uppercase font-semibold text-charcoal-500 mt-0.5 leading-none">North Carolina Advisory</span>
-</div>
-</a>
-</div>
-<!-- Desktop Navigation Menu -->
-<nav class="hidden xl:flex items-center gap-4 lg:gap-5 text-[11px] tracking-widest uppercase font-semibold text-charcoal-700 whitespace-nowrap" data-purpose="desktop-nav">
-<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#overview">Overview</a>
-<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#advisory">Advisory</a>
-<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#portfolio">Portfolio</a>
-<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#enclaves">Enclaves</a>
-<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#transactions">Transactions</a>
-<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#advisor">Advisor</a>
-<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#faq">FAQ</a>
-<a class="header-scroll-link hover:text-cognac-600 transition-colors py-1" href="#contact">Contact</a>
-</nav>
-<!-- Action Button -->
-<div class="flex items-center gap-3 shrink-0 flex-shrink-0">
-<button class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-cognac-600 hover:bg-cognac-700 text-white transition-all shadow-sm hover:shadow-md whitespace-nowrap shrink-0" data-purpose="header-cta" onclick="openModal('consultation-modal')">
-  Request Consultation
-</button>
-<!-- Quick Menu Toggle Icon for Mobile -->
-<button aria-label="Toggle Full Menu Drawer" class="xl:hidden text-charcoal-800 p-2 focus:outline-none rounded-lg hover:bg-linen-200 transition-colors" onclick="openNavDrawer()">
-<i class="fa-solid fa-bars text-lg"></i>
-</button>
-</div>
 </div>
 </header>
-<!-- END: MainHeader -->
-<!-- BEGIN: HeroSection -->
-<section class="pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-linen-50" id="hero">
-<div class="max-w-7xl mx-auto px-6 lg:px-12">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-<!-- Left Hero Content -->
-<div class="lg:col-span-6 flex flex-col items-start" data-purpose="hero-copy">
-<div class="inline-flex items-center gap-2 mb-6">
-<span class="w-2 h-2 rounded-full bg-cognac-500"></span>
-<span class="text-[11px] font-semibold tracking-widest uppercase text-charcoal-500">North Carolina Estates • Residential &amp; Commercial</span>
+<!-- END: Sticky Mobile Navigation -->
+<!-- BEGIN: Slide-Out Mobile Navigation Drawer -->
+<div class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm" id="drawer-backdrop"></div>
+<aside class="fixed top-0 right-0 bottom-0 w-[84%] max-w-sm bg-brand-dark text-white z-50 transform translate-x-full shadow-2xl flex flex-col justify-between overflow-y-auto" id="drawer-menu">
+<!-- Drawer Header -->
+<div class="p-6 border-b border-brand-borderDark flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="w-6 h-6 rounded-full bg-brand-rust text-white flex items-center justify-center font-serif text-xs">A</span>
+<span class="font-serif text-lg tracking-wider text-brand-cream uppercase">Avery Estate</span>
 </div>
-<h1 class="text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.12] font-serif text-charcoal-900 font-normal mb-6 tracking-tight">
-            The move you make when it has to <span class="font-serif-italic text-cognac-600">go right.</span>
+<button aria-label="Close Navigation" class="p-2 rounded-full text-brand-sand/70 hover:text-white hover:bg-white/10 transition" id="close-drawer-btn" type="button">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+<!-- Drawer Navigation Links -->
+<nav class="px-6 py-8 space-y-5 text-left font-serif text-2xl tracking-wide flex-1">
+<div><a class="drawer-link block text-white/90 hover:text-brand-rust transition" href="#featured">Featured Listings</a></div>
+<div><a class="drawer-link block text-white/90 hover:text-brand-rust transition" href="#practice">The Approach</a></div>
+<div><a class="drawer-link block text-white/90 hover:text-brand-rust transition" href="#recent-sales">Discreet Sales</a></div>
+<div><a class="drawer-link block text-white/90 hover:text-brand-rust transition" href="#private-access">Private Access</a></div>
+<div><a class="drawer-link block text-white/90 hover:text-brand-rust transition" href="#advisor">About Avery Dunn</a></div>
+<div><a class="drawer-link block text-white/90 hover:text-brand-rust transition" href="#metrics">Market Metrics</a></div>
+<div><a class="drawer-link block text-white/90 hover:text-brand-rust transition" href="#timeline">Our Process</a></div>
+<div><a class="drawer-link block text-white/90 hover:text-brand-rust transition" href="#faq">Client FAQ</a></div>
+</nav>
+<!-- Drawer Contact & Quick CTA -->
+<div class="p-6 bg-brand-darker border-t border-brand-borderDark space-y-4 font-sans">
+<a class="drawer-link block text-center py-3.5 px-4 w-full rounded-md bg-brand-rust text-white font-medium text-sm tracking-wider uppercase shadow-md hover:bg-brand-rustLight transition" href="#consultation">
+        Book a Consultation
+      </a>
+<div class="text-xs text-brand-sand/70 space-y-1 pt-1 text-center">
+<p>Direct: (310) 905-2144</p>
+<p class="font-serif italic text-white/80">Beverly Hills • Malibu • Newport Beach</p>
+</div>
+</div>
+</aside>
+<!-- END: Slide-Out Mobile Navigation Drawer -->
+<main>
+<!-- BEGIN: Hero Section -->
+<section class="px-4 pt-6 pb-12 max-w-xl mx-auto" data-purpose="hero-section">
+<!-- Tag / Location badge -->
+<div class="mb-4">
+<span class="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-taupe">Los Angeles Estates • $4M-$25M</span>
+</div>
+<!-- Main editorial headline -->
+<h1 class="serif-display text-4xl leading-[1.12] text-brand-dark font-normal mb-4">
+        The move you make when it has to <span class="italic text-brand-rust font-light">go right.</span>
 </h1>
-<p class="text-base sm:text-lg text-charcoal-700 leading-relaxed font-light mb-8 max-w-xl">
-            Avery represents discerning buyers, family offices, and corporate principals across Research Triangle, Charlotte, and the Blue Ridge with calm expertise.
-          </p>
-<div class="flex flex-wrap items-center gap-4 mb-10 w-full sm:w-auto">
-<a class="header-scroll-link inline-flex items-center justify-center px-7 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-forest-850 hover:bg-forest-900 text-white transition-all shadow hover:shadow-lg" href="#portfolio">
-              Browse Portfolio
-            </a>
-<button class="inline-flex items-center justify-center px-7 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-linen-200 hover:bg-linen-300 text-charcoal-800 transition-colors" onclick="openModal('consultation-modal')">
-              Private Consult
-            </button>
-</div>
-<!-- Social Proof Cluster -->
-<div class="pt-4 border-t border-linen-200 flex items-center gap-4">
-<div class="flex -space-x-2">
-<span class="inline-block h-8 w-8 rounded-full ring-2 ring-linen-50 bg-forest-800 text-linen-100 text-[10px] flex items-center justify-center font-bold">NC</span>
-<span class="inline-block h-8 w-8 rounded-full ring-2 ring-linen-50 bg-charcoal-800 text-linen-100 text-[10px] flex items-center justify-center font-bold">RDU</span>
-<span class="inline-block h-8 w-8 rounded-full ring-2 ring-linen-50 bg-cognac-600 text-white text-[10px] flex items-center justify-center font-bold">CLT</span>
-</div>
-<p class="text-xs font-medium text-charcoal-500">
-<strong class="text-charcoal-900 font-semibold">72% of clients</strong> come by private introduction &amp; referral
-            </p>
-</div>
-</div>
-<!-- Right Hero Media & Metric Cards (1:1 with Reference Layout) -->
-<div class="lg:col-span-6 relative" data-purpose="hero-media-showcase">
-<!-- Main Architectural Card -->
-<div class="relative rounded-2xl overflow-hidden shadow-2xl bg-charcoal-900 border border-linen-300">
-<div class="relative h-[380px] sm:h-[460px] w-full">
-<img alt="The Pavilion at Sycamore Creek • Raleigh Modern Architectural Estate" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkaEZ5ZQr0r5OyHQy27onLDuXQzov-owuQM2dX8b5JiS2m3twc4zjkxOJsel7jMhoO79kfXcjBp1ZNLq_saYvUtye113Dzl5m4mbHN9i-NueQ6AggI49YNIMthD-XbMym_6X-D1P3xB4cwicrBikRza573sSmKny4h91F0xSInMKCeOhuUW-RymUNAkHiW7_6mHZkCltIDBzeyQ7Cs34TNWNNcARdXaiipAd9wa3ee">
-<div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-transparent to-black/20"></div>
-<!-- Top Badge -->
-<div class="absolute top-4 left-4">
-<span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-white/90 frosted-glass text-forest-900 shadow">
-                  Featured Acquisition
-                </span>
-</div>
-<!-- Image Card Details -->
-<div class="absolute bottom-6 left-6 right-6 flex items-end justify-between text-white">
-<div>
-<span class="text-xs tracking-wider uppercase text-linen-300 font-medium block">Raleigh • Umstead Reserve</span>
-<h3 class="text-2xl font-serif text-white font-normal mt-0.5">The Pavilion at Sycamore Creek</h3>
-</div>
-<div class="text-right">
-<span class="px-3 py-1.5 rounded-lg bg-charcoal-900/80 frosted-glass text-xs font-semibold tracking-wide text-cognac-400 border border-white/10">
-                    $8,950,000
-                  </span>
-</div>
-</div>
-</div>
-</div>
-<!-- Bottom Metric Tiles as in Avery Reference -->
-<div class="grid grid-cols-2 gap-4 mt-4">
-<div class="bg-forest-850 text-linen-100 p-5 rounded-xl shadow-lg border border-forest-700/50 flex flex-col justify-between">
-<span class="text-[10px] tracking-widest uppercase font-semibold text-linen-300">Closed Volume</span>
-<div class="mt-2">
-<span class="text-2xl sm:text-3xl font-serif text-linen-50">$420M+</span>
-<p class="text-[11px] text-linen-400 mt-1">Across Raleigh-Durham, Charlotte &amp; Triad</p>
-</div>
-</div>
-<div class="bg-linen-100 text-charcoal-800 p-5 rounded-xl shadow-sm border border-linen-300 flex flex-col justify-between">
-<span class="text-[10px] tracking-widest uppercase font-semibold text-charcoal-500">Avg. Days on Market</span>
-<div class="mt-2">
-<span class="text-2xl sm:text-3xl font-serif text-charcoal-900">18 days</span>
-<p class="text-[11px] text-charcoal-500 mt-1">For discreet NC luxury private sales</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- END: HeroSection -->
-<!-- BEGIN: EmeraldStatementBanner -->
-<section class="bg-forest-850 text-linen-100 py-16 sm:py-20 border-y border-forest-700">
-<div class="max-w-5xl mx-auto px-6 text-center" data-purpose="core-mantra">
-<span class="text-[11px] tracking-widest uppercase text-cognac-400 font-semibold mb-3 block">
-        For Buyers, Sellers, and Growing Families
-      </span>
-<h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal leading-tight tracking-tight text-linen-50">
-        One advisor. Every step, <span class="font-serif-italic text-cognac-400">done well.</span>
-</h2>
-<p class="text-linen-300 text-sm sm:text-base font-light max-w-2xl mx-auto mt-4 leading-relaxed">
-        Guiding corporate transfers, multi-generational estates, and commercial medical/office acquisitions with calm, uncompromised fiduciary discretion.
+<p class="text-sm text-brand-taupe leading-relaxed mb-6 font-light">
+        Avery Dunn represents discerning buyers and sellers across Los Angeles with calm expertise and absolute confidentiality.
       </p>
+<!-- Primary Action Buttons -->
+<div class="flex items-center space-x-3 mb-8">
+<a class="flex-1 text-center py-3 px-4 rounded-full bg-brand-dark text-white text-xs font-semibold tracking-wider uppercase hover:bg-brand-forest transition shadow-sm" href="#featured">
+          Browse Listings
+        </a>
+<a class="flex-1 text-center py-3 px-4 rounded-full bg-white border border-brand-border text-brand-dark text-xs font-semibold tracking-wider uppercase hover:bg-brand-sand transition" href="#consultation">
+          Private Consult
+        </a>
 </div>
-</section>
-<!-- END: EmeraldStatementBanner -->
-<!-- BEGIN: ThreePillarsSection -->
-<section class="py-24 bg-linen-50 border-b border-linen-200" id="advisory">
-<div class="max-w-7xl mx-auto px-6 lg:px-12">
-<!-- Section Header -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-end mb-16">
-<div class="md:col-span-7">
-<span class="text-[11px] tracking-widest uppercase font-semibold text-cognac-600 block mb-2">What This Looks Like</span>
-<h2 class="text-3xl sm:text-4xl font-serif text-charcoal-900 font-normal">
-            In practice, this is what Avery <span class="font-serif-italic text-cognac-600">does.</span>
-</h2>
+<!-- Social Proof / Client Trust Avatar Stamp -->
+<div class="flex items-center space-x-3 mb-8 bg-brand-sand/60 p-3 rounded-xl border border-brand-border/60">
+<div class="flex -space-x-2 overflow-hidden">
+<img alt="Client avatar" class="inline-block h-8 w-8 rounded-full ring-2 ring-brand-cream object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm2-o_70mx32exbF_1LOMPlBMVrF4JcNY6aWH4F2lruHRIg5IzfK1tFFUtWF0ENnuOtzFIV0pvMjGPivXAaZwm3qalXomUSjE0D0Lu_M49DDfLCE20HnDH6ORBz9jPl95X70-fJZVWbqXtHD-jV2C3s0svKBPvU-4pb6OTJzSBwbOQdGld3LwG3WNub_9Tyv1TeE7YM04gZB_XE966crqZzl3UKrgS6Ef5dzpT62AM"/>
+<img alt="Client avatar" class="inline-block h-8 w-8 rounded-full ring-2 ring-brand-cream object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXWK1qnPSnoNwsxNSYQvlUqfwjEeY9E30j9jy9BCMSn63NXba-457ZhRVGMi49v2yyqdKm9Eda1hRlyr5OzltPmPilc8_MdOuI2NkOnosuM0HHjQezqlBsOsDQpzEGRkWvAEr64HrO4IkOQpLSguSwb6xqwo4XHUAJOKAZYcKD5b5DEBsWk49l-L-D55zHIKaRYZDs2fn_zHsCyL2tZq-5tQQLpIjEDMsMg88OHzau"/>
+<img alt="Client avatar" class="inline-block h-8 w-8 rounded-full ring-2 ring-brand-cream object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCYyAnV0C2yMze84KwvOzEoBz8pEGOKe6WNPuXjH_DvqgZDK3zcRQ6t5kA_pPEiP8VEOhpfKfTFf-bofpNP9Shi1oUvn4SGFeI9jaWeyuibiADHmzaLnQOGfl8ioP2p4xRST4cyzClDuG09v3A35qwCg8YWJgE3GOxpyD0T3oYjZr9UVL8jBaxQZHSQhxKRnqwgEHBLQndwVm7GgwmNQSMAK1E9tabGfBvf-PYKPAS"/>
 </div>
-<div class="md:col-span-5 text-charcoal-700 text-sm font-light leading-relaxed">
-          Careful advice before the listing is published, the bid is executed, or the capital is deployed. Thorough, prepared, and always working in your interest.
-        </div>
-</div>
-<!-- 3 Tinted Cards -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8" data-purpose="three-pillars-grid">
-<!-- Pillar Card 1: Warm Cognac Tint -->
-<div class="bg-[#b36b3f]/10 border border-cognac-500/30 rounded-2xl p-8 flex flex-col justify-between hover:border-cognac-500 transition-all duration-300">
-<div>
-<span class="text-[10px] tracking-widest uppercase font-semibold text-cognac-700 block mb-8">Quiet Preparation</span>
-<h3 class="text-2xl font-serif text-charcoal-900 mb-4 font-normal">
-              Prepare the estate before it is seen.
-            </h3>
-<p class="text-charcoal-700 text-sm font-light leading-relaxed">
-              Pricing, architectural staging, high-fidelity film, and discreet off-market teasers are perfected weeks before public exposure.
-            </p>
-</div>
-<div class="mt-8 pt-4 border-t border-cognac-500/20 text-xs font-semibold text-cognac-700 flex items-center justify-between">
-<span class="">Staging &amp; Architectural Media</span>
-<i class="fa-solid fa-arrow-right text-[10px]"></i>
-</div>
-</div>
-<!-- Pillar Card 2: Linen Muted -->
-<div class="bg-linen-100 border border-linen-300 rounded-2xl p-8 flex flex-col justify-between hover:border-charcoal-500 transition-all duration-300">
-<div>
-<span class="text-[10px] tracking-widest uppercase font-semibold text-charcoal-500 block mb-8">Clear Access</span>
-<h3 class="text-2xl font-serif text-charcoal-900 mb-4 font-normal">
-              See what is public, private, and worth waiting for.
-            </h3>
-<p class="text-charcoal-700 text-sm font-light leading-relaxed">
-              Read the street, the master plan, and the true cost of zoning or remodeling before any capital is committed.
-            </p>
-</div>
-<div class="mt-8 pt-4 border-t border-linen-300 text-xs font-semibold text-charcoal-700 flex items-center justify-between">
-<span class="">Off-Market Intelligence</span>
-<i class="fa-solid fa-arrow-right text-[10px]"></i>
-</div>
-</div>
-<!-- Pillar Card 3: Pure Minimal -->
-<div class="bg-white border border-linen-200 rounded-2xl p-8 flex flex-col justify-between shadow-sm hover:border-forest-700 transition-all duration-300">
-<div>
-<span class="text-[10px] tracking-widest uppercase font-semibold text-forest-800 block mb-8">Honest Valuation</span>
-<h3 class="text-2xl font-serif text-charcoal-900 mb-4 font-normal">
-              Understand value before you need a decision.
-            </h3>
-<p class="text-charcoal-700 text-sm font-light leading-relaxed">
-              A calm opinion on what the property is genuinely worth, what improvements deliver tangible returns, and when the market favors your move.
-            </p>
-</div>
-<div class="mt-8 pt-4 border-t border-linen-200 text-xs font-semibold text-forest-800 flex items-center justify-between">
-<span class="">Institutional Underwriting</span>
-<i class="fa-solid fa-arrow-right text-[10px]"></i>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- END: ThreePillarsSection -->
-<!-- BEGIN: FeaturedListingsSection -->
-<section class="py-24 bg-linen-100/60 border-b border-linen-200" id="portfolio">
-<div class="max-w-7xl mx-auto px-6 lg:px-12">
-<!-- Section Top Header with Action -->
-<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-6">
-<div>
-<span class="text-[11px] tracking-widest uppercase font-semibold text-charcoal-500 block mb-2">Current Offerings</span>
-<h2 class="text-3xl sm:text-4xl font-serif text-charcoal-900 font-normal">
-            Homes with presence before the <span class="font-serif-italic text-cognac-600">tour begins.</span>
-</h2>
-</div>
-<button class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider bg-charcoal-900 hover:bg-forest-900 text-white transition-all shadow" onclick="openModal('private-list-modal')">
-<span class="">Request Private List</span>
-<i class="fa-solid fa-key text-[11px] text-cognac-400"></i>
-</button>
-</div>
-<!-- Main Listing Card -->
-<div class="mb-10 rounded-2xl overflow-hidden bg-charcoal-900 text-white shadow-xl border border-linen-300 relative group" data-purpose="primary-listing-hero">
-<div class="relative h-[440px] sm:h-[560px] w-full overflow-hidden">
-<img alt="The Prestonwood Glasshouse • Cary Modern Architectural Glasshouse" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIdaHUKSwkjyYYDRiNaG6NQcWWlhyQtijRPBMsISuyiHMvFCo3UM8WRoUbbIUlDIH_j8DwMTCU5xfkDya-stl74e4umkdsopmSeXqTNzAWKT2AB3PpNLvmUVILklFKMseCqKEjVCc3321WMjZRfFxoLl-yKC8ScLSnGoA8Iu5_UVktq1X7VMc3auJKbW8EMMth4JfJfWGlbDYl3rHYDYzQtZUYHUmNZhyjNE8WR2RT">
-<div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-charcoal-900/20 to-transparent"></div>
-<!-- Top Badge -->
-<div class="absolute top-6 left-6">
-<span class="px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase bg-cognac-600 text-white shadow">
-              New Exclusive Listing
-            </span>
-</div>
-<!-- Bottom Floating Specs Bar -->
-<div class="absolute bottom-6 left-6 right-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-<div>
-<span class="text-xs uppercase tracking-widest text-linen-300 font-semibold block">Cary • Prestonwood Golf Sanctuary</span>
-<h3 class="text-2xl sm:text-3xl font-serif font-normal text-white mt-1">The Prestonwood Glasshouse</h3>
-<p class="text-xs sm:text-sm text-linen-300 mt-2 flex flex-wrap items-center gap-3">
-<span class="font-medium text-cognac-400 text-base">$6,650,000</span>
-<span class="">•</span>
-<span class="">5 Bed</span>
-<span class="">•</span>
-<span class="">7 Bath</span>
-<span class="">•</span>
-<span class="">8,400 Sq Ft</span>
-<span class="">•</span>
-<span class="">Reflecting Pool &amp; Fire Lounge</span>
-</p>
-</div>
-<div>
-<button class="px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider bg-white text-charcoal-900 hover:bg-linen-100 transition-all shadow" onclick="openModal('consultation-modal')">
-                Schedule Viewing
-              </button>
-</div>
-</div>
-</div>
-</div>
-<!-- Dual Split Grid Below -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8" data-purpose="secondary-listings-grid">
-<!-- Card 1: Jordan Lake Waterfront -->
-<div class="rounded-2xl overflow-hidden bg-charcoal-900 text-white shadow-lg border border-linen-300 relative group">
-<div class="relative h-[340px] sm:h-[400px] w-full overflow-hidden">
-<img alt="Governors Club Point &amp; Private Dock • Lake Jordan Waterfront Manor" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHyCzt6GORf0x3wLyZ7kvmYZC1hiHuLdglNIKC6mxoIZ2ixcuOV0RjKRGbrhfQkz1jZAqx6y02KKDGmRzvuIEqm3f8d6egTsLGk4s7aiZSvcst9pHee0gbhV5PKYCZjmySyjzVRoVX5CLIaq_OR0qyba6JxaHMZbhP1P2LF6ERa-y3P-9kKslcfT9N0AT3nVCHGXNKR716654yhfI2mVMK3Y8eK7Fr2rfvuWu2Njnx">
-<div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-transparent to-black/20"></div>
-<div class="absolute top-4 left-4">
-<span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-white/90 frosted-glass text-forest-900">
-                Waterfront Available
-              </span>
-</div>
-<div class="absolute bottom-6 left-6 right-6">
-<span class="text-[11px] uppercase tracking-wider text-linen-300 block">Chapel Hill / Chatham County</span>
-<h4 class="text-xl font-serif text-white font-normal mt-0.5">Governors Club Point &amp; Private Dock</h4>
-<div class="flex items-center justify-between mt-2 pt-2 border-t border-white/10">
-<span class="text-cognac-400 font-medium text-sm">$4,850,000</span>
-<span class="text-xs text-linen-300">5 Bed • 6 Bath • 7,100 Sq Ft</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Card 2: Modern Estate in Raleigh -->
-<div class="rounded-2xl overflow-hidden bg-charcoal-900 text-white shadow-lg border border-linen-300 relative group">
-<div class="relative h-[340px] sm:h-[400px] w-full overflow-hidden">
-<img alt="The Cedar Stone Contemporary • North Raleigh Architectural Estate" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDj9tFoUHJQWKOzOeIx35wVn-WSThr4Am9eRuRe0-_HGQrFzIVjdZRQcfBFQv1t6wjT3l5o7gmbw4ObyIo-Y-apFSj4wHdaiWYt4A2dVFY0tbo7RAr6jDWeZRiCwuOyaGuzPldqfcmkAg5zWg4VLWhzn5hjH3N6qvxIyqSwE3uV7U0Ak6Puhv3AFv06Qs7szycSuJrd8QoNtiBPDznJCR03mHnf_IUCjVpZpOn1jIn">
-<div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-transparent to-black/20"></div>
-<div class="absolute top-4 left-4">
-<span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-white/90 frosted-glass text-forest-900">
-                Architectural Modern
-              </span>
-</div>
-<div class="absolute bottom-6 left-6 right-6">
-<span class="text-[11px] uppercase tracking-wider text-linen-300 block">North Raleigh • Falls River Reserve</span>
-<h4 class="text-xl font-serif text-white font-normal mt-0.5">The Cedar Stone Contemporary</h4>
-<div class="flex items-center justify-between mt-2 pt-2 border-t border-white/10">
-<span class="text-cognac-400 font-medium text-sm">$7,450,000</span>
-<span class="text-xs text-linen-300">6 Bed • 8 Bath • 9,200 Sq Ft</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- END: FeaturedListingsSection -->
-<!-- BEGIN: RecentDiscreetSalesSection -->
-<section class="py-24 bg-linen-50 border-b border-linen-200" id="transactions">
-<div class="max-w-7xl mx-auto px-6 lg:px-12">
-<!-- Section Header -->
-<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-6">
-<div>
-<span class="text-[11px] tracking-widest uppercase font-semibold text-charcoal-500 block mb-2">Sold Records</span>
-<h2 class="text-3xl sm:text-4xl font-serif text-charcoal-900 font-normal">
-            Recent sales handled with <span class="font-serif-italic text-cognac-600">discretion.</span>
-</h2>
-</div>
-<button class="inline-flex items-center justify-center px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider bg-linen-200 hover:bg-linen-300 text-charcoal-900 transition-colors" onclick="openModal('consultation-modal')">
-          Discuss Your Home
-        </button>
-</div>
-<!-- Discreet Sales Table / Row Layout -->
-<div class="divide-y divide-linen-200 border-y border-linen-200" data-purpose="discreet-sales-list">
-<!-- Transaction Row 1 -->
-<div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-linen-100/50 px-4 -mx-4 rounded-xl transition-colors">
-<div class="flex items-center gap-5">
-<div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-charcoal-800">
-<img alt="MacGregor Downs Cary Manor" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Xqq822LZs509twmE8GvHbB7Mwzlv8DYVv-c7JewoBO81oRkGTrUyq-plThEd8u5ajrz2HG7imY5DiONFtjtsfP18XQLhmLCXowvCj5MkXvwsUyfFmpSfCQgfaem0NWX5uW4feZzIZ__2FX5BFNOS2MaeOdAsV1X5OUnWZtXV2Cq-4g9XeaA4bBB9UNFsYQGkhfylran2zfyE8SSt6EJu5QJ9rAEx4-FKTkIGvM7zP7MQ">
-</div>
-<div>
-<h4 class="text-lg font-serif text-charcoal-900 font-medium">MacGregor Fairway Manor</h4>
-<span class="text-xs text-charcoal-500">Cary, NC • Fairway Enclave</span>
-</div>
-</div>
-<div class="flex flex-wrap items-center gap-6 md:gap-12">
-<div class="text-sm font-semibold text-charcoal-900">$7,850,000</div>
-<div class="text-xs text-charcoal-500 max-w-xs hidden lg:block font-light">
-              Georgian brick exterior balancing slate craftsmanship, wine salon, and 1.8-acre championship course vistas.
-            </div>
-<div>
-<span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-linen-200 text-charcoal-700">
-                Off-Market
-              </span>
-</div>
-</div>
-</div>
-<!-- Transaction Row 2 -->
-<div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-linen-100/50 px-4 -mx-4 rounded-xl transition-colors">
-<div class="flex items-center gap-5">
-<div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-charcoal-800">
-<img alt="Midtown Raleigh Kitchen &amp; Medical Suite" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VSobkbcRVDyvq-GdZdy0za6l3tz_Sw2bzyCiqbhsILpXjpSjkILMh1Wage6yV3JW_cLK1UpKY-pii4Z2ASitPQ120vzwjmvihXtqFweL_WmHW8kWOIwG7aVn4UklG31HutjWIzOK0l7QkzkV8U6siv-w1WUqJD4ZGd61kNL3IJj4rMrElnRhwiGPY8sPw0rUCvvwC7foakrCIPYzM6S27Ac4y23noxBo-JX7I9_dF_Vg">
-</div>
-<div>
-<h4 class="text-lg font-serif text-charcoal-900 font-medium">Midtown Raleigh Commercial Pavilion</h4>
-<span class="text-xs text-charcoal-500">Raleigh, NC • North Hills Office</span>
-</div>
-</div>
-<div class="flex flex-wrap items-center gap-6 md:gap-12">
-<div class="text-sm font-semibold text-charcoal-900">$12,200,000</div>
-<div class="text-xs text-charcoal-500 max-w-xs hidden lg:block font-light">
-              Class-A executive medical center, acquired with long-term tenant roll-over and verified 6.8% cap rate.
-            </div>
-<div>
-<span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-linen-200 text-charcoal-700">
-                Institutional
-              </span>
-</div>
-</div>
-</div>
-<!-- Transaction Row 3 -->
-<div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-linen-100/50 px-4 -mx-4 rounded-xl transition-colors">
-<div class="flex items-center gap-5">
-<div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-charcoal-800">
-<img alt="Lake Norman Waterfront Villa" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XWKh8XSOw7Jkr20ThX4zGSi4-7edmehgJIHp9y46LeG-018eNPAzCov9KLMLLQ8BXOuFUdGFSAWEgaj5brI0XOby3beF9rHaLd-iRcEoBOtGdb0Uz7u1YoXcezsxTsSVNdYdhfrnfNAWjRhkuh9-zqxV_2IxUxqYphGqN8w8ag4xDW3yFrmDzKZ0N3eUifmK3Ww5q4HIy-moZ4y3SbWlC5Ye3IjsL49xzgtlHv4mve">
-</div>
-<div>
-<h4 class="text-lg font-serif text-charcoal-900 font-medium">The Peninsula Waterfront Manor</h4>
-<span class="text-xs text-charcoal-500">Cornelius / Lake Norman, NC</span>
-</div>
-</div>
-<div class="flex flex-wrap items-center gap-6 md:gap-12">
-<div class="text-sm font-semibold text-charcoal-900">$8,400,000</div>
-<div class="text-xs text-charcoal-500 max-w-xs hidden lg:block font-light">
-              Tiered stone waterfront estate with deep-water dual boat slip, private helipad landing rights, and sunset orientation.
-            </div>
-<div>
-<span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-linen-200 text-charcoal-700">
-                Private Placement
-              </span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- END: RecentDiscreetSalesSection -->
-<!-- BEGIN: CinematicParallaxBreak -->
-<section class="relative py-32 lg:py-44 bg-forest-900 overflow-hidden" data-purpose="cinematic-break">
-<!-- Background Image with Gradient Overlay -->
-<div class="absolute inset-0">
-<img alt="Ultra-luxury modern North Carolina estate at golden hour dusk" class="w-full h-full object-cover object-center filter brightness-90" src="https://lh3.googleusercontent.com/aida/AEtjO1VrefqEUH7avKipjbFI5SsCSlFh85DVWZglGsj1wRdHz2KR1wtans1SEnlxekG_kZywAcDLmQZaNrVOabSECC9J70aT63oV98ZZ5Q8fwma4yaqRDGxW0khlLeDIH8zZSaRaUeg-Lw2_fqQHGWx1ESfWBWUD-2eY4NLklskfiAWqbD-zr3Dxq859j4y8oRh7Ak45Ih_uvcJXS64aLD7eJUrasVzNK_vVuDyj-wlIGw_7qg">
-<div class="absolute inset-0 bg-forest-900/65 backdrop-blur-[1px]"></div>
-</div>
-<!-- Centered Editorial Text -->
-<div class="relative max-w-4xl mx-auto px-6 text-center text-white">
-<span class="text-[11px] font-bold tracking-widest uppercase text-cognac-400 block mb-4">
-        Private Access Only
-      </span>
-<h2 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-normal leading-tight tracking-tight mb-6">
-        Not every home worth seeing is <span class="font-serif-italic text-cognac-400">public.</span>
-</h2>
-<p class="text-sm sm:text-base text-linen-200 font-light max-w-xl mx-auto mb-10 leading-relaxed">
-        Over 40% of Avery's Carolina estate transactions occur off-market between vetted principals, eliminating public scrutiny and preserving total privacy.
-      </p>
-<button class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white text-forest-900 hover:bg-linen-100 transition-all shadow-lg hover:shadow-xl" onclick="openModal('private-list-modal')">
-<i class="fa-solid fa-lock text-cognac-600 text-xs"></i>
-<span class="">Request Private Access</span>
-</button>
-</div>
-</section>
-<!-- END: CinematicParallaxBreak -->
-<!-- BEGIN: TerritoryEnclavesSection -->
-<section class="py-24 bg-linen-50 border-b border-linen-200" id="enclaves">
-<div class="max-w-7xl mx-auto px-6 lg:px-12">
-<!-- Section Header -->
-<div class="text-center max-w-3xl mx-auto mb-16">
-<span class="text-[11px] tracking-widest uppercase font-semibold text-cognac-600 block mb-2">North Carolina Enclaves</span>
-<h2 class="text-3xl sm:text-4xl font-serif text-charcoal-900 font-normal">
-          Buy the home, and the life <span class="font-serif-italic text-cognac-600">around it.</span>
-</h2>
-<p class="text-charcoal-600 text-sm font-light mt-3 leading-relaxed">
-          Avery knows the quiet avenues, private airfield corridors, lake access channels, and executive commercial districts that make each Carolina pocket distinct.
+<p class="text-xs text-brand-dark font-medium leading-snug">
+<span class="font-bold text-brand-rust">72% of clients</span> come by direct private referral.
         </p>
 </div>
-<!-- 3-Column Lifestyle Grid -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-purpose="enclaves-grid">
-<!-- Enclave 1: Research Triangle -->
-<div class="rounded-2xl overflow-hidden bg-white border border-linen-300 shadow-sm flex flex-col group hover:shadow-md transition-shadow">
-<div class="relative h-64 overflow-hidden bg-forest-900">
-<img alt="Bespoke luxury executive commercial office pavilion and modern residential compound in Research Triangle Raleigh North Carolina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1V5XHbocuXuOND_R5RXaxR7DD6lAk-2GDpUQklGBJwh6x6sHCdPGEsH5_vV2Yc3vm2PV37hzyQYfXRtPIK3zzDd28Jxhrw9j_QKhx-LdzUppq8AiWxDYCNIITVWWMSGAhH3lewNiDme9lX3aIMBQeyBYc9IXB21cLoLvTm6Mj3czmKTrNycf0-Se9YrJfJ3jhRdZHL1570luwo3F-kiF8Xic3nlE1vcGz3KvMibyfatuA">
-<div class="absolute bottom-3 left-4">
-<span class="px-2.5 py-1 rounded bg-black/70 frosted-glass text-[10px] font-semibold uppercase tracking-wider text-white">
-                Raleigh • Cary • Chapel Hill
-              </span>
+<!-- Hero Featured Property Showcase Card -->
+<div class="relative rounded-2xl overflow-hidden shadow-xl bg-brand-dark border border-brand-darker group">
+<div class="relative h-72 w-full overflow-hidden">
+<img alt="The Oriole House, Hollywood Hills" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQFYd_JxqA-dNRAPaFqiP16FMxTSaK_yK9BHmq_XMl-_ApPZL7UJ-zMWFgjEz0VsjnkcxLBFi7ONenfPR3Nly-9wC-SWmKT3e_X7OJaANAHIIesJKW5Sfxp02kEYrQStwmsC6vnwXX8wG6cMwilQ7CjDDjuFYuH81Dvg7KBgNs7a5MEAxv4QOgywXAQJstWDSztgtGwZ5958PDNJ1eCy2M5tWgdnkkxAG3b7xUZYLN"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<span class="absolute top-3.5 left-3.5 bg-white/90 text-brand-dark text-[10px] tracking-widest font-semibold px-2.5 py-1 rounded-full uppercase backdrop-blur-sm">
+            Featured
+          </span>
+<span class="absolute top-3.5 right-3.5 bg-black/60 text-white text-[11px] font-medium px-2.5 py-1 rounded-full backdrop-blur-sm">
+            $8,350,000
+          </span>
 </div>
-</div>
-<div class="p-6 flex-1 flex flex-col justify-between">
+<div class="p-4 bg-brand-dark text-white flex items-center justify-between">
 <div>
-<h3 class="text-xl font-serif text-charcoal-900 mb-2">Research Triangle</h3>
-<p class="text-xs text-charcoal-600 leading-relaxed font-light">
-                Championship golf estates, tree-lined ITB legacy homes, and modern tech-executive compounds near Duke, UNC, and RDU International.
-              </p>
+<span class="text-[10px] uppercase tracking-widest text-brand-sand/70 font-semibold">Hollywood Hills</span>
+<h3 class="font-serif text-lg tracking-wide text-white">The Oriole House</h3>
 </div>
-<div class="mt-6 pt-4 border-t border-linen-100 flex items-center justify-between text-xs text-cognac-700 font-medium">
-<span class="">Explore Triangle Enclaves</span>
-<i class="fa-solid fa-arrow-right text-[10px]"></i>
+<a class="px-3 py-1.5 rounded-full border border-white/30 text-[11px] uppercase tracking-wider font-semibold text-brand-cream hover:bg-white hover:text-brand-dark transition" href="#consultation">
+            View Details
+          </a>
 </div>
 </div>
+<!-- Quick Trust Indicators Metric Split -->
+<div class="grid grid-cols-2 gap-3 mt-4">
+<div class="bg-brand-sand/80 border border-brand-border rounded-xl p-3.5 text-center">
+<p class="font-serif text-2xl font-semibold text-brand-dark">$420M+</p>
+<p class="text-[10px] uppercase tracking-wider text-brand-taupe mt-0.5">Closed LA Volume</p>
 </div>
-<!-- Enclave 2: Lake Norman & Charlotte -->
-<div class="rounded-2xl overflow-hidden bg-white border border-linen-300 shadow-sm flex flex-col group hover:shadow-md transition-shadow">
-<div class="relative h-64 overflow-hidden bg-forest-900">
-<img alt="Luxury waterfront contemporary estate on Lake Norman Charlotte North Carolina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1XQqGb8-earIibdjT6otl28YX2Z1O2zoQ5B01cp2lDnDrKf4souBznroyy2MeiDVSHbUgkXQKmC6YaOY88G8kMd1GsqjP4Xvs7D8k_hVYieEW4U9E3bjXwvzyPjjY51cYcnhTBElN-WMGVNvkdJGIMqffujm9iYEJln1ww9BFNGZsoXidYsjglJtT9ivF10uIgu5ofhnRDqs6wnH_4eD1HGxo89phPKHp-PRp7-AeUznw">
-<div class="absolute bottom-3 left-4">
-<span class="px-2.5 py-1 rounded bg-black/70 frosted-glass text-[10px] font-semibold uppercase tracking-wider text-white">
-                Lake Norman • Charlotte Metro
-              </span>
-</div>
-</div>
-<div class="p-6 flex-1 flex flex-col justify-between">
-<div>
-<h3 class="text-xl font-serif text-charcoal-900 mb-2">Charlotte &amp; The Lakes</h3>
-<p class="text-xs text-charcoal-600 leading-relaxed font-light">
-                Deep-water shoreline manors at The Peninsula, Quail Hollow golf residences, and financial district corporate headquarters.
-              </p>
-</div>
-<div class="mt-6 pt-4 border-t border-linen-100 flex items-center justify-between text-xs text-cognac-700 font-medium">
-<span class="">Explore Charlotte &amp; Waterfront</span>
-<i class="fa-solid fa-arrow-right text-[10px]"></i>
-</div>
-</div>
-</div>
-<!-- Enclave 3: High Country & Mountain Escapes -->
-<div class="rounded-2xl overflow-hidden bg-white border border-linen-300 shadow-sm flex flex-col group hover:shadow-md transition-shadow">
-<div class="relative h-64 overflow-hidden bg-forest-900">
-<img alt="Bespoke modern luxury mountain timber and stone architectural estate retreat in Blue Ridge Mountains Highlands North Carolina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1WIYe7tyghcF0P9GIRkfDdYU8x6ELIaRix-ZoIe1yIyTrloqaABu2p8OtbL1E_AFItA02-Ad6IRkfXTGa2KHDPME7OnplYrn3g4BmN9mwjyDlFSmxssxnIKWC5APlqgYC4ltMnNmcdvT7DTIeKOLTUYatfMXdHEeFWkmjmBsiCcG0uU3UzwBbEXObWxiTmAHC84SSlcsHrfa0yN19hyUJPpss5G_MZdlaujl05rukp9sQ">
-<div class="absolute bottom-3 left-4">
-<span class="px-2.5 py-1 rounded bg-black/70 frosted-glass text-[10px] font-semibold uppercase tracking-wider text-white">
-                Asheville • High Country
-              </span>
-</div>
-</div>
-<div class="p-6 flex-1 flex flex-col justify-between">
-<div>
-<h3 class="text-xl font-serif text-charcoal-900 mb-2">High Country &amp; Mountain Escapes</h3>
-<p class="text-xs text-charcoal-600 leading-relaxed font-light">
-                Bespoke stone and timber architectural sanctuaries in Biltmore Forest, Blowing Rock, and the rolling foothills of Tryon.
-              </p>
-</div>
-<div class="mt-6 pt-4 border-t border-linen-100 flex items-center justify-between text-xs text-cognac-700 font-medium">
-<span class="">Explore Mountain Retreats</span>
-<i class="fa-solid fa-arrow-right text-[10px]"></i>
-</div>
-</div>
-</div>
+<div class="bg-brand-sand/80 border border-brand-border rounded-xl p-3.5 text-center">
+<p class="font-serif text-2xl font-semibold text-brand-rust">18 Days</p>
+<p class="text-[10px] uppercase tracking-wider text-brand-taupe mt-0.5">Avg Days On Market</p>
 </div>
 </div>
 </section>
-<!-- END: TerritoryEnclavesSection -->
-<!-- BEGIN: AdvisorBiographySection -->
-<section class="py-24 bg-linen-100/60 border-b border-linen-200" id="advisor">
-<div class="max-w-7xl mx-auto px-6 lg:px-12">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-<!-- Advisor Portrait Column with Verified Credentials Badge -->
-<div class="lg:col-span-5 relative" data-purpose="advisor-portrait">
-<div class="relative rounded-2xl overflow-hidden shadow-xl bg-forest-900 border border-linen-300">
-<div class="aspect-[4/5] w-full">
-<img alt="Sarah Avery, Principal Broker &amp; Managing Director" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida/AEtjO1U7hnCkjAnbJ5lf-e0iYyviirxlm0R9UWd0_RVlbH-6qpYenYTmJc68gs2br_Jg2ghyNb80j4Sb6eqby0LuEE0Nn6xuBeXWvBhamK-fOLjm-SihWzy1wWhOZVVvR2kic9ViYSkZfA3qb6mzE0Gxjgjz4s63GDDRcCbmtH1zj25Dtvws-BJpcgb1_jmlnggVko-QneeimbSw_5b2gwUiick23ql4-LO5IAD8FTQuVaiqVw">
-</div>
-<!-- Credential Overlay Card -->
-<div class="absolute bottom-4 left-4 right-4 bg-white/95 frosted-glass rounded-xl p-4 shadow-lg border border-linen-200">
-<div class="flex items-center justify-between">
-<div>
-<h4 class="text-sm font-semibold text-charcoal-900">Sarah Avery</h4>
-<p class="text-[11px] text-charcoal-500">Principal Broker &amp; Managing Director • Commercial &amp; Residential</p>
-</div>
-<div class="w-8 h-8 rounded-full bg-forest-850 flex items-center justify-center text-cognac-400">
-<i class="fa-solid fa-award text-xs"></i>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Philosophy Editorial Column -->
-<div class="lg:col-span-7" data-purpose="advisor-philosophy">
-<span class="text-[11px] tracking-widest uppercase font-semibold text-cognac-600 block mb-3">Meet Your Advisor</span>
-<h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-charcoal-900 font-normal leading-tight mb-6">
-            A trusted advisor for people who expect more from their <span class="font-serif-italic text-cognac-600">agent.</span>
+<!-- END: Hero Section -->
+<!-- BEGIN: Philosophy Statement -->
+<section class="bg-brand-dark text-brand-cream px-6 py-14 text-center" data-purpose="philosophy-banner">
+<div class="max-w-md mx-auto">
+<span class="text-[10px] uppercase tracking-[0.25em] text-brand-rustLight font-semibold">For Buyers, Sellers, and Growing Families</span>
+<h2 class="serif-display text-3xl font-light leading-snug mt-3">
+          One advisor. Every step, <span class="italic text-[#D7A97B]">done well.</span>
 </h2>
-<p class="text-charcoal-700 text-sm sm:text-base font-light leading-relaxed mb-6">
-            Sarah Avery represents discerning buyers, family offices, and investors across Raleigh, Chapel Hill, Cary, Charlotte, and the mountains. Her clients value straight answers, careful preparation, and total confidentiality.
+<p class="text-xs text-brand-sand/70 mt-3 font-light leading-relaxed">
+          Careful advice before the home is shown, the offer is written, or the decision is made. Thorough, prepared, and always working in your interest.
+        </p>
+</div>
+</section>
+<!-- END: Philosophy Statement -->
+<!-- BEGIN: In Practice (3 Pillars) -->
+<section class="px-4 py-12 max-w-xl mx-auto" data-purpose="practice-pillars" id="practice">
+<div class="mb-8">
+<span class="text-[11px] font-semibold tracking-widest text-brand-taupe uppercase">What this looks like</span>
+<h2 class="serif-display text-3xl text-brand-dark mt-1">In practice, this is what Avery <span class="italic text-brand-rust">does.</span></h2>
+</div>
+<div class="space-y-4">
+<!-- Pillar Card 1: Quiet Preparation -->
+<div class="bg-brand-rust/10 border border-brand-rust/20 rounded-2xl p-5 relative overflow-hidden">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] uppercase font-bold tracking-widest text-brand-rust">Quiet Preparation</span>
+<span class="text-xs text-brand-rust/70 font-mono">01</span>
+</div>
+<h3 class="serif-display text-xl text-brand-dark font-medium mb-1.5">Prepare the home before it is seen.</h3>
+<p class="text-xs text-brand-taupe leading-relaxed">
+            Pricing, photography, timing, and private previews are handled with care before the property reaches the open market.
           </p>
-<!-- Pull Quote -->
-<div class="p-6 rounded-xl bg-linen-200/50 border-l-2 border-cognac-600 mb-8">
-<p class="font-serif-italic text-charcoal-900 text-base sm:text-lg leading-snug">
-              “My role is to make the next decision feel clear, even when the market does not. We replace anxiety with thorough preparation and disciplined strategy.”
-            </p>
 </div>
-<!-- 3 Quantitative Metrics Badges -->
-<div class="grid grid-cols-3 gap-4 pt-6 border-t border-linen-300">
+<!-- Pillar Card 2: Clear Advice -->
+<div class="bg-brand-sand/60 border border-brand-border rounded-2xl p-5 relative overflow-hidden">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] uppercase font-bold tracking-widest text-brand-taupe">Clear Advice</span>
+<span class="text-xs text-brand-taupe font-mono">02</span>
+</div>
+<h3 class="serif-display text-xl text-brand-dark font-medium mb-1.5">See what is public, private, and worth waiting for.</h3>
+<p class="text-xs text-brand-taupe leading-relaxed">
+            Read the street, find the house, and calculate the true cost of owning it before any permanent move is made.
+          </p>
+</div>
+<!-- Pillar Card 3: Honest Valuation -->
+<div class="bg-brand-sand/60 border border-brand-border rounded-2xl p-5 relative overflow-hidden">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] uppercase font-bold tracking-widest text-brand-taupe">Honest Valuation</span>
+<span class="text-xs text-brand-taupe font-mono">03</span>
+</div>
+<h3 class="serif-display text-xl text-brand-dark font-medium mb-1.5">Understand value before you need a decision.</h3>
+<p class="text-xs text-brand-taupe leading-relaxed">
+            A calm opinion on what the home is worth, what to improve, and whether now is the proper timing.
+          </p>
+</div>
+</div>
+</section>
+<!-- END: In Practice (3 Pillars) -->
+<!-- BEGIN: Current Listings Section -->
+<section class="px-4 py-8 max-w-xl mx-auto" data-purpose="current-listings" id="featured">
+<div class="flex items-end justify-between mb-6">
 <div>
-<span class="text-2xl sm:text-3xl font-serif text-charcoal-900 block">$3M–$25M</span>
-<span class="text-[11px] uppercase tracking-wider text-charcoal-500 font-semibold">Typical Range</span>
+<span class="text-[10px] font-semibold tracking-widest uppercase text-brand-taupe">Current Listings</span>
+<h2 class="serif-display text-3xl text-brand-dark mt-0.5">Homes with presence before the <span class="italic text-brand-rust">tour begins.</span></h2>
 </div>
+</div>
+<!-- Hero Listing: Trousdale Modern -->
+<div class="bg-brand-dark text-white rounded-2xl overflow-hidden shadow-lg border border-brand-borderDark mb-6">
+<div class="relative h-64 w-full">
+<img alt="Trousdale Modern" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHjhmenySo9otjt_Tl-AZdkPUEY-mYmBMaeMbHcDq-iW4kEDyVrP6JA5y-3hpvh0Gv2F1R1ou3J3yaFUE-euEi27ZKMlt36UU-Npmmhyyu8nAF7WjbjFiIj_r7R5GKiOmN0Uw0D6on4iHq9rsUHXpiRQtC_EANizkdtgB50d5Z_0hGsQ_g__Ls4g6-vDZRURsrYQ3eRu9JfOMqgI2WWYf1TBLviJZqz6XOcfqpC8dx"/>
+<span class="absolute top-3 left-3 bg-brand-rust text-white text-[10px] font-bold tracking-wider px-2.5 py-1 rounded uppercase">New Listing</span>
+<span class="absolute bottom-3 right-3 bg-black/75 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded">
+            $14,500,000
+          </span>
+</div>
+<div class="p-5">
+<div class="flex items-baseline justify-between mb-2">
+<span class="text-[11px] font-semibold tracking-wider text-brand-sand/70 uppercase">Hollywood Hills</span>
+<span class="text-xs text-brand-sand/70 font-mono">6 Bed • 7 Bath • 6,400 Sq Ft</span>
+</div>
+<h3 class="serif-display text-2xl text-brand-cream font-medium mb-3">Trousdale Modern</h3>
+<div class="flex items-center space-x-3 pt-2">
+<a class="flex-1 text-center py-2.5 rounded-full bg-white text-brand-dark text-xs font-semibold tracking-wider uppercase hover:bg-brand-sand transition" href="#consultation">
+              Schedule Viewing
+            </a>
+</div>
+</div>
+</div>
+<!-- Secondary Listing Cards Grid -->
+<div class="grid grid-cols-2 gap-3.5">
+<!-- Listing 2 -->
+<div class="bg-white rounded-xl overflow-hidden border border-brand-border shadow-sm flex flex-col justify-between">
 <div>
-<span class="text-2xl sm:text-3xl font-serif text-charcoal-900 block">72%</span>
-<span class="text-[11px] uppercase tracking-wider text-charcoal-500 font-semibold">By Referral</span>
+<div class="relative h-36 w-full">
+<img alt="Canyon View Residence" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1JiUiTWEdGq2zQPtd7f35ANr-UvAZaCdW3-HTzr4zIm_GmxKDpKZiBgMmUSA8FrD64ON5JqIXndxoQk42ssLEIS5U1Eem5glk1BJAp5NNxgWvP2ptwaAv2S7j7GpF8nRsSH4qwUAOSiMOA1dXXKmN9k0AM20Jngy1AMZRK-M7rq7_hdz9-4ExWlzfUeODrKSudn9juqrYBByj9xse7me_tGRuDZMytgQ0HnbJIKC7"/>
+<span class="absolute top-2 left-2 bg-black/60 text-white text-[9px] font-medium px-2 py-0.5 rounded backdrop-blur-sm">Available</span>
 </div>
+<div class="p-3">
+<span class="text-[9px] uppercase tracking-wider text-brand-taupe block font-semibold">Manhattan Beach</span>
+<h4 class="font-serif text-base text-brand-dark font-medium leading-snug">Canyon View</h4>
+<p class="text-xs font-bold text-brand-rust mt-1">$10,200,000</p>
+</div>
+</div>
+<div class="p-3 pt-0">
+<a class="block text-center py-1.5 border border-brand-border rounded text-[10px] uppercase font-semibold text-brand-dark hover:bg-brand-sand transition" href="#consultation">Inquire</a>
+</div>
+</div>
+<!-- Listing 3 -->
+<div class="bg-white rounded-xl overflow-hidden border border-brand-border shadow-sm flex flex-col justify-between">
 <div>
-<span class="text-2xl sm:text-3xl font-serif text-charcoal-900 block">Top 0.1%</span>
-<span class="text-[11px] uppercase tracking-wider text-charcoal-500 font-semibold">NC Statewide</span>
+<div class="relative h-36 w-full">
+<img alt="Mandeville Estate" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaMLROGTEB1SlUJf2Ed2sXqT2Zgojf_yVjNiy076LeIJ9vpFyRpnrF1exS6SwarqJ01wSzXBx0_UCicQXMFVevqfNBotcntdpJv7ylw1BpFOT1VWt8mESEhD-zphvwNebD4JCC_72Vqy8ZnXV3xWOpxWrDrmRO9SttGV0jo6VKsd5T7l9zai4o9iRV3U2DOqBpSnSDDMxSsNrLdXrA3Gj7IGrUjCrSBZfNbDdjOcgV"/>
+<span class="absolute top-2 left-2 bg-black/60 text-white text-[9px] font-medium px-2 py-0.5 rounded backdrop-blur-sm">Available</span>
+</div>
+<div class="p-3">
+<span class="text-[9px] uppercase tracking-wider text-brand-taupe block font-semibold">Newport Coast</span>
+<h4 class="font-serif text-base text-brand-dark font-medium leading-snug">Mandeville Estate</h4>
+<p class="text-xs font-bold text-brand-rust mt-1">$7,850,000</p>
 </div>
 </div>
+<div class="p-3 pt-0">
+<a class="block text-center py-1.5 border border-brand-border rounded text-[10px] uppercase font-semibold text-brand-dark hover:bg-brand-sand transition" href="#consultation">Inquire</a>
 </div>
 </div>
 </div>
 </section>
-<!-- END: AdvisorBiographySection -->
-<!-- BEGIN: DeepForestMetricsSection -->
-<section class="py-24 bg-forest-900 text-linen-100 border-b border-forest-800" data-purpose="metrics-dashboard">
-<div class="max-w-7xl mx-auto px-6 lg:px-12">
-<!-- Section Header -->
-<div class="max-w-2xl mb-16">
-<span class="text-[11px] tracking-widest uppercase font-semibold text-cognac-400 block mb-2">Fiduciary Proof</span>
-<h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-linen-50 font-normal">
-          Measured care, not loud <span class="font-serif-italic text-cognac-400">selling.</span>
+<!-- END: Current Listings Section -->
+<!-- BEGIN: Recent Discretionary Sales -->
+<section class="px-4 py-10 max-w-xl mx-auto" data-purpose="discreet-sales" id="recent-sales">
+<div class="mb-5">
+<span class="text-[10px] uppercase tracking-widest text-brand-taupe font-semibold">Sold Listings</span>
+<h2 class="serif-display text-3xl text-brand-dark">Recent sales handled with <span class="italic text-brand-rust">discretion.</span></h2>
+</div>
+<div class="bg-white rounded-2xl border border-brand-border overflow-hidden divide-y divide-brand-border shadow-sm">
+<!-- Item 1 -->
+<div class="p-3.5 flex items-center justify-between space-x-3">
+<img alt="Mandeville Estate" class="w-12 h-12 rounded-lg object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA4PEEggu6diQ4pRjCiEyMmx-2GhNE6I5C_hXf0vRTblii_vWOzY1wdhqnQk9lRgDTomInJfQg5nLTEU4i1z5IeHmxJlRyJ9GMlvitbTfYY-5M8t9fKTLnZj0EQcmOduxErSsDIXgDKiDHhd3udWFu0WWNvclk-lqOxdTL9MaUHkb7BG9KrL1vTU6xZpOEbbGc9pXwUU7C8Ln_14LskjoVwOLs5AWzw2z6dr0EFTKw"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-serif text-base text-brand-dark font-medium truncate">Mandeville Estate</h4>
+<p class="text-[10px] text-brand-taupe uppercase tracking-wider">Newport Coast • Pre-Market</p>
+</div>
+<div class="text-right">
+<span class="text-xs font-semibold text-brand-dark block">$7,850,000</span>
+<span class="inline-block text-[9px] px-1.5 py-0.5 rounded bg-brand-sand text-brand-taupe">Off-Market</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-3.5 flex items-center justify-between space-x-3">
+<img alt="Melrose Atelier" class="w-12 h-12 rounded-lg object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUB5yg-F6--QYmQSLGd5_OSnEu0KkWyAO2is3K7QADkyBAkM7_h3o-naP5bw05QlK7CICBkCdQ2dBHqmEfEXayIzKLsTkBh2dLnz2PdkC1RPNf_5IOVi4I46jtHO0GmenQvZjAbO5jruHF3y4KF6XvypC5qreSRmSX_WwO2RrrlPX77AsJ1NP-lTMug6gKKegwnPsgtj7GQOt5hva91kZXbUs0vjkQd8EUH1E2DGqa"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-serif text-base text-brand-dark font-medium truncate">Melrose Atelier</h4>
+<p class="text-[10px] text-brand-taupe uppercase tracking-wider">Nob Hill / West LA</p>
+</div>
+<div class="text-right">
+<span class="text-xs font-semibold text-brand-dark block">$6,950,000</span>
+<span class="inline-block text-[9px] px-1.5 py-0.5 rounded bg-brand-sand text-brand-taupe">Private Sale</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="p-3.5 flex items-center justify-between space-x-3">
+<img alt="Carbon Beach Villa" class="w-12 h-12 rounded-lg object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqJNIr3gq8Lcm-PtzBFyxHxIpAyDyqtzDO3m4x0BPw9wadv8nYZOipkbdh-IjdxLgp2yBPiIidOPr7CaDVvu90LBL6UbxmspbPODQiRMMaPIWIw6Fm4maqFOenKAdiLDc4uPQSfaU-BGekLefJ2DXsqMaApJUndjrkkH39tNRBtEgAIWMZfDa4dLYa3dGrD2zuHSBS0aK8fR_C8RAWE45kg2h2KZeMOoQCtVDTGUZE"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-serif text-base text-brand-dark font-medium truncate">Carbon Beach Villa</h4>
+<p class="text-[10px] text-brand-taupe uppercase tracking-wider">Malibu Coast</p>
+</div>
+<div class="text-right">
+<span class="text-xs font-semibold text-brand-dark block">$12,450,000</span>
+<span class="inline-block text-[9px] px-1.5 py-0.5 rounded bg-brand-sand text-brand-taupe">Closed</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Recent Discretionary Sales -->
+<!-- BEGIN: Private Access Editorial Banner -->
+<section class="relative my-6 px-4 max-w-xl mx-auto" data-purpose="private-banner" id="private-access">
+<div class="relative rounded-3xl overflow-hidden min-h-[360px] flex flex-col justify-end p-6 border border-brand-border">
+<img alt="Private Luxury Estate" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzMcc5WHgOPR9_yHRX4ocfuqDXuTfKicpZTYfXtWTRUVi5-ZwD6v0xRm-0VpxdkreyZeM-Gq1swqhdkpZ7g8whoc-hgu3HjAuOQZJk_kEwDHrAOTT3pfrpykcEMdy3ov4_9Gl-cpBMFgSB4BhWHbpzX7MckeL3No32n3rKKd2ztYur5iHtX2vTF9wes3Joj4NAK8Ixq_SxuXfDwXBwBFEJvnSnnnqEmHBkujP4sjYv"/>
+<div class="absolute inset-0 bg-gradient-to-t from-brand-darker via-brand-dark/60 to-transparent"></div>
+<div class="relative z-10 text-white">
+<span class="text-[10px] uppercase font-bold tracking-[0.25em] text-brand-rustLight block mb-2">Private Access</span>
+<h2 class="serif-display text-3xl font-light leading-snug mb-3">
+            Not every home worth seeing is <span class="italic text-brand-cream">public.</span>
 </h2>
-</div>
-<!-- Dashboard Interactive Metric Tiles -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-<!-- Tile 1: Days on Market (Cognac Card) -->
-<div class="md:col-span-4 bg-cognac-600 text-white rounded-2xl p-7 flex flex-col justify-between shadow-lg">
-<div>
-<span class="text-[10px] tracking-widest uppercase font-bold text-linen-200">Avg. Days on Market</span>
-<div class="text-5xl font-serif font-normal mt-6 mb-2">18</div>
-</div>
-<p class="text-xs text-linen-100 font-light pt-6 border-t border-white/20">
-            For Avery’s private North Carolina listings over the past 3 fiscal quarters.
+<p class="text-xs text-brand-sand/80 mb-5 leading-relaxed font-light">
+            Over a third of our luxury transactions are coordinated quietly off-market with strict buyer verification.
           </p>
+<a class="inline-block text-center px-5 py-3 rounded-full bg-white text-brand-dark text-xs font-semibold tracking-wider uppercase hover:bg-brand-sand transition shadow-lg" href="#consultation">
+            Request Private Access
+          </a>
 </div>
-<!-- Tile 2: Sale to Asking Ratio with Bar Visual -->
-<div class="md:col-span-4 bg-forest-800 rounded-2xl p-7 flex flex-col justify-between border border-forest-700">
+</div>
+</section>
+<!-- END: Private Access Editorial Banner -->
+<!-- BEGIN: Lifestyle & Neighborhoods -->
+<section class="px-4 py-10 max-w-xl mx-auto" data-purpose="lifestyle-neighborhoods">
+<div class="text-center max-w-md mx-auto mb-8">
+<h2 class="serif-display text-3xl text-brand-dark">Buy the home, and the life <span class="italic text-brand-rust">around it.</span></h2>
+<p class="text-xs text-brand-taupe mt-2">Avery knows the quiet streets, school conversations, and canyon routes that make each pocket feel distinct.</p>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Main Large photo -->
+<div class="col-span-2 relative rounded-2xl overflow-hidden h-48 group">
+<img alt="Pacific Coastline" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYvPN-4AceXXtD9bLkWFm_D5UtTykrxnfzqLV6Qv-rsoNuitejbE1XmPYwJAP6MywGh3oNO86lsBiuEHnMr5FMb_Msh2owaHgEorQABHYRVfgCGidG0TycC1ju3SvsGgRCGxR7VBBMqjbLRQMDFxrI2k0BU61RvWPvjt7J1HgOQvDqjy8iGdAMxFsWlCCZtEqwh0CYDgSNRDIiPYUrvBHhAyaY8ctVM9GihZsIL36r"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+<div class="absolute bottom-3 left-3 text-white">
+<span class="text-[9px] uppercase tracking-widest text-brand-sand/80">Coastal Living</span>
+<p class="font-serif text-lg font-medium">Manhattan Beach &amp; Canyon Calm</p>
+</div>
+</div>
+<!-- Neighborhood sub-card 1 -->
+<div class="relative rounded-xl overflow-hidden h-36">
+<img alt="Hollywood Hills" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8oCPF66ShZmCKQ8ZCpuI1yIoeLSgPFEIWNl5apZA0S527aUgZNl4myfwXvoYN6sy0U26Cx-88RoH413sAgU6v9YmGmJrCLJf9BOuNAIQt80wjacAGGizmqVw48YKXGgopGz58CDOMz_dXbHffGElyH5a6Qv_G9U_QOxMrrv12nGax7_FMHwAiq78hsUMg0yLgLj7p5ab_6towVaCSGH4l8SJ4Fdz_olzvFBUXJ_fg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
+<div class="absolute bottom-2.5 left-2.5 text-white">
+<span class="text-[9px] uppercase tracking-widest text-brand-sand/80">Hollywood Hills</span>
+<p class="font-serif text-sm font-medium">Design &amp; Dinings</p>
+</div>
+</div>
+<!-- Neighborhood sub-card 2 -->
+<div class="relative rounded-xl overflow-hidden h-36">
+<img alt="Newport Coast" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwLVEvTc1NECG_cGbCH9vdaqhX1yA-mbcbI77bOnMtUmuaGHtoBzKeb2AASTqB-CNCVVTH4CXv0m7iPOghsYt3x6nb-ekt6Wmzstz6nvaMPjtgH86wqJ2BBZJRT7gdJ0kCu3FqpKDpJBh-fXPBhTCg9EheUCSbeZ3iclqOGeRNgDsL0vWf3LJgfnTpZu1N0NZYCzIAsKMHl2j6Io04FVN5DzQwOn80ExZTZsAjfKgn"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
+<div class="absolute bottom-2.5 left-2.5 text-white">
+<span class="text-[9px] uppercase tracking-widest text-brand-sand/80">Newport Coast</span>
+<p class="font-serif text-sm font-medium">Refined Daily Living</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Lifestyle & Neighborhoods -->
+<!-- BEGIN: Advisor Profile Section -->
+<section class="px-4 py-10 bg-brand-sand/40 border-y border-brand-border" data-purpose="advisor-profile" id="advisor">
+<div class="max-w-xl mx-auto">
+<span class="text-[10px] uppercase font-bold tracking-[0.2em] text-brand-taupe block mb-1">Meet Avery</span>
+<h2 class="serif-display text-3xl text-brand-dark mb-4">
+          A trusted advisor for people who expect more from their <span class="italic text-brand-rust">agent.</span>
+</h2>
+<!-- Avery Profile Card with verification details -->
+<div class="bg-white rounded-2xl overflow-hidden border border-brand-border p-4 shadow-sm mb-6">
+<div class="flex items-center space-x-4 mb-4">
+<img alt="Avery Dunn - Principal Real Estate Advisor" class="w-20 h-20 rounded-full object-cover ring-2 ring-brand-rust/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeTTZ8SB-82yyCUCPFoMHK5aZZDWNZsAswHkg_iCHGJcZFYlibJIzEA46jkKOZ-oOobeud1SW24K6gO4lwDm1g_zmCrLrcL8WAj_20a6BXA7BlqXykv2Mwc4XYgO-Mgq2RGgl4w6DLzu99bpXkVdQQ1mxy5Gb85QtlIntCYmWeXqbpjXfUPga_irUovfMoL9aTCXYGsep3_knSqyildIP2RYE1IHwVQjTRCHvH4BUE"/>
 <div>
-<span class="text-[10px] tracking-widest uppercase font-semibold text-linen-300">Sale Price vs Asking</span>
-<div class="text-4xl sm:text-5xl font-serif text-linen-50 mt-4 mb-4">98.4%</div>
-<!-- CSS Bar Graph -->
-<div class="flex items-end gap-2 h-14 pt-2">
-<div class="w-1/5 bg-cognac-600/40 rounded-t h-[60%]"></div>
-<div class="w-1/5 bg-cognac-600/60 rounded-t h-[75%]"></div>
-<div class="w-1/5 bg-cognac-600/80 rounded-t h-[88%]"></div>
-<div class="w-1/5 bg-cognac-500 rounded-t h-[94%]"></div>
-<div class="w-1/5 bg-cognac-400 rounded-t h-[98%]"></div>
+<h3 class="font-serif text-xl text-brand-dark font-medium">Avery Dunn</h3>
+<p class="text-xs text-brand-taupe">Principal Advisor &amp; Founder</p>
+<div class="flex items-center space-x-1.5 mt-1 text-[11px] text-brand-rust font-semibold">
+<span>•</span>
+<span>Beverly Hills • Malibu • Brentwood</span>
 </div>
 </div>
-<p class="text-xs text-linen-300 font-light pt-4 border-t border-forest-700">
-            Consistent asset valuation avoiding repeated public price cuts.
-          </p>
 </div>
-<!-- Tile 3: Showcase Property Visual Card -->
-<div class="md:col-span-4 relative rounded-2xl overflow-hidden min-h-[260px] border border-forest-700">
-<img alt="Discreetly Underwritten North Carolina Architectural Assets" class="w-full h-full object-cover filter brightness-90" src="https://lh3.googleusercontent.com/aida/AEtjO1VrefqEUH7avKipjbFI5SsCSlFh85DVWZglGsj1wRdHz2KR1wtans1SEnlxekG_kZywAcDLmQZaNrVOabSECC9J70aT63oV98ZZ5Q8fwma4yaqRDGxW0khlLeDIH8zZSaRaUeg-Lw2_fqQHGWx1ESfWBWUD-2eY4NLklskfiAWqbD-zr3Dxq859j4y8oRh7Ak45Ih_uvcJXS64aLD7eJUrasVzNK_vVuDyj-wlIGw_7qg">
-<div class="absolute inset-0 bg-gradient-to-t from-forest-900/90 via-transparent to-black/30"></div>
-<div class="absolute bottom-6 left-6 right-6">
-<span class="text-[10px] tracking-widest uppercase font-semibold text-cognac-400 block">Private Portfolio</span>
-<h4 class="text-lg font-serif text-white mt-1">Discreetly Underwritten Assets</h4>
-<p class="text-[11px] text-linen-300 mt-1">Each estate is prepared, presented, and closed with the same level of institutional care.</p>
+<!-- Credentials Checklist -->
+<div class="bg-brand-cream rounded-xl p-3.5 border border-brand-border/70 space-y-1.5 text-xs text-brand-dark">
+<div class="flex items-center space-x-2">
+<span class="text-brand-rust font-bold">✓</span>
+<span>Top 1% Los Angeles agent volume ranking</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="text-brand-rust font-bold">✓</span>
+<span>72% of transactions handled quietly off-market</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="text-brand-rust font-bold">✓</span>
+<span>Direct, single-point contact from first tour to close</span>
 </div>
 </div>
-<!-- Tile 4: Known Buyer Relationships -->
-<div class="md:col-span-6 bg-forest-850 rounded-2xl p-7 border border-forest-700 flex flex-col justify-between">
-<div class="flex items-start justify-between">
+</div>
+<!-- Avery Dunn Quote Block -->
+<blockquote class="bg-brand-cream border-l-2 border-brand-rust pl-4 py-2 italic font-serif text-base text-brand-dark/90 leading-snug">
+          “My job is to make the next decision feel clear, even when the market does not.”
+        </blockquote>
+<!-- Advisor Key Metrics Bar -->
+<div class="grid grid-cols-3 gap-2 text-center mt-6">
+<div class="bg-white border border-brand-border rounded-xl p-2.5">
+<p class="font-serif text-xl font-semibold text-brand-dark">$4M–$18M</p>
+<p class="text-[9px] uppercase tracking-wider text-brand-taupe mt-0.5">Focus Range</p>
+</div>
+<div class="bg-white border border-brand-border rounded-xl p-2.5">
+<p class="font-serif text-xl font-semibold text-brand-rust">72%</p>
+<p class="text-[9px] uppercase tracking-wider text-brand-taupe mt-0.5">Referral Rate</p>
+</div>
+<div class="bg-white border border-brand-border rounded-xl p-2.5">
+<p class="font-serif text-xl font-semibold text-brand-dark">Top 1%</p>
+<p class="text-[9px] uppercase tracking-wider text-brand-taupe mt-0.5">LA Ranking</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Advisor Profile Section -->
+<!-- BEGIN: Data & Market Metrics (Dark Forest Section) -->
+<section class="bg-brand-dark text-white px-4 py-12" data-purpose="market-metrics" id="metrics">
+<div class="max-w-xl mx-auto">
+<div class="mb-8">
+<span class="text-[10px] uppercase font-bold tracking-[0.2em] text-brand-rustLight block mb-1">Measured Performance</span>
+<h2 class="serif-display text-3xl font-light">Measured care, not loud <span class="italic text-brand-cream">selling.</span></h2>
+</div>
+<div class="grid grid-cols-2 gap-3.5">
+<!-- Metric Card 1: Days on Market -->
+<div class="bg-brand-rust rounded-2xl p-4 text-white flex flex-col justify-between">
 <div>
-<span class="text-[10px] tracking-widest uppercase font-semibold text-linen-300">Known Buyer Relationships</span>
-<div class="text-4xl font-serif text-linen-50 mt-3">1,200+</div>
+<span class="text-[9px] uppercase tracking-widest text-white/80 font-bold block mb-1">Days on Market</span>
+<p class="font-serif text-4xl font-semibold">18</p>
 </div>
-<div class="w-10 h-10 rounded-full bg-forest-700 flex items-center justify-center text-linen-200">
-<i class="fa-solid fa-users text-sm"></i>
+<p class="text-[10px] text-white/90 leading-tight mt-3">Vs Los Angeles luxury market avg of 54 days.</p>
 </div>
-</div>
-<div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-forest-700/60 text-[10px] text-linen-300">
-<span class="px-2.5 py-1 rounded bg-forest-700/50">Family Offices</span>
-<span class="px-2.5 py-1 rounded bg-forest-700/50">Tech Executives</span>
-<span class="px-2.5 py-1 rounded bg-forest-700/50">Institutional REITs</span>
-<span class="px-2.5 py-1 rounded bg-forest-700/50">Medical Group Partners</span>
-</div>
-</div>
-<!-- Tile 5: Circular Referral Graphic -->
-<div class="md:col-span-6 bg-forest-850 rounded-2xl p-7 border border-forest-700 flex items-center justify-between">
+<!-- Metric Card 2: Sale to Asking -->
+<div class="bg-brand-forest/70 border border-brand-borderDark rounded-2xl p-4 text-white flex flex-col justify-between">
 <div>
-<span class="text-[10px] tracking-widest uppercase font-semibold text-linen-300">Clients by Referral</span>
-<div class="text-4xl font-serif text-linen-50 mt-2">78%</div>
-<p class="text-xs text-linen-300 mt-1 font-light">Of every active advisory mandate</p>
+<span class="text-[9px] uppercase tracking-widest text-brand-sand/70 font-bold block mb-1">Sale vs Asking</span>
+<p class="font-serif text-4xl font-semibold">98%</p>
 </div>
-<div class="relative w-20 h-20 rounded-full border-4 border-forest-700 flex items-center justify-center">
-<div class="absolute inset-0 rounded-full border-4 border-cognac-400 border-t-transparent border-l-transparent -rotate-45"></div>
-<span class="text-xs font-bold text-linen-100 font-serif">78%</span>
+<div class="flex items-end space-x-1.5 h-6 mt-3">
+<span class="w-2 h-2 bg-brand-sand/40 rounded-t"></span>
+<span class="w-2 h-3.5 bg-brand-sand/60 rounded-t"></span>
+<span class="w-2 h-5 bg-brand-sand/80 rounded-t"></span>
+<span class="w-2 h-6 bg-brand-rust rounded-t"></span>
+</div>
+</div>
+<!-- Metric Card 3: Known Relationships -->
+<div class="bg-brand-forest/70 border border-brand-borderDark rounded-2xl p-4 text-white">
+<span class="text-[9px] uppercase tracking-widest text-brand-sand/70 font-bold block mb-1">Buyer Network</span>
+<p class="font-serif text-3xl font-semibold">1,200+</p>
+<p class="text-[10px] text-brand-sand/70 mt-1">Direct contact with family offices &amp; legal counsels.</p>
+</div>
+<!-- Metric Card 4: Clients by Referral -->
+<div class="bg-brand-forest/70 border border-brand-borderDark rounded-2xl p-4 text-white flex flex-col justify-between">
+<span class="text-[9px] uppercase tracking-widest text-brand-sand/70 font-bold block mb-1">Repeat &amp; Referrals</span>
+<div class="flex items-center space-x-2 my-1">
+<div class="w-9 h-9 rounded-full border-2 border-brand-rust flex items-center justify-center text-xs font-serif font-bold">
+                72%
+              </div>
+<p class="text-[10px] text-brand-sand/80 leading-tight">Private word of mouth</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<!-- END: DeepForestMetricsSection -->
-<!-- BEGIN: RoadmapProcessSection -->
-<section class="py-24 bg-linen-50 border-b border-linen-200">
-<div class="max-w-7xl mx-auto px-6 lg:px-12">
-<!-- Section Header -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-16">
-<div class="md:col-span-5">
-<span class="text-[11px] tracking-widest uppercase font-semibold text-cognac-600 block mb-2">How It Works</span>
-<h2 class="text-3xl sm:text-4xl font-serif text-charcoal-900 font-normal leading-tight">
-            A simple path from first call to closing.
-          </h2>
-<p class="text-charcoal-600 text-sm font-light mt-3 leading-relaxed">
-            No rushed decisions. No unnecessary noise. Avery keeps the next step clear, then handles the execution with care.
-          </p>
-<!-- Highlight Pill Card -->
-<div class="mt-8 p-6 rounded-2xl bg-linen-100 border border-linen-300">
-<span class="text-[10px] tracking-widest uppercase font-semibold text-forest-850 block mb-2">Fiduciary Pledge</span>
-<h4 class="text-lg font-serif text-charcoal-900 font-medium">No rushed decisions. No noisy marketing.</h4>
-<p class="text-xs text-charcoal-600 font-light mt-2 leading-relaxed">
-              Every step is explored before it happens, protecting privacy and financial upside throughout.
-            </p>
+<!-- END: Data & Market Metrics -->
+<!-- BEGIN: Process Timeline Section -->
+<section class="px-4 py-12 max-w-xl mx-auto" data-purpose="process-timeline" id="timeline">
+<div class="mb-8">
+<span class="text-[10px] uppercase font-bold tracking-widest text-brand-taupe block mb-1">How it Works</span>
+<h2 class="serif-display text-3xl text-brand-dark leading-tight">A simple path from first call to <span class="italic text-brand-rust">closing.</span></h2>
 </div>
-</div>
-<!-- 4 Step Chronological Flow -->
-<div class="md:col-span-7 flex flex-col gap-6" data-purpose="process-steps">
+<div class="space-y-4">
 <!-- Step 1 -->
-<div class="p-6 rounded-xl bg-white border border-linen-200 shadow-sm flex items-start gap-5">
-<div class="text-2xl font-serif text-cognac-600 font-light">01</div>
+<div class="flex items-start space-x-3.5 bg-white p-4 rounded-xl border border-brand-border shadow-xs">
+<span class="font-serif text-xl font-bold text-brand-rust/80 mt-0.5">01</span>
 <div>
-<h3 class="text-base font-semibold text-charcoal-900 mb-1">First Conversation</h3>
-<p class="text-xs text-charcoal-600 font-light leading-relaxed">
-                Share what you want, what you need to avoid, and when the transition should occur. No pressure, no commitment.
-              </p>
+<h4 class="font-serif text-base text-brand-dark font-medium">First conversation</h4>
+<p class="text-xs text-brand-taupe mt-0.5 leading-relaxed">Share what you want, what you need to avoid, and when the move should happen. Zero sales pressure.</p>
 </div>
 </div>
 <!-- Step 2 -->
-<div class="p-6 rounded-xl bg-white border border-linen-200 shadow-sm flex items-start gap-5">
-<div class="text-2xl font-serif text-cognac-600 font-light">02</div>
+<div class="flex items-start space-x-3.5 bg-white p-4 rounded-xl border border-brand-border shadow-xs">
+<span class="font-serif text-xl font-bold text-brand-rust/80 mt-0.5">02</span>
 <div>
-<h3 class="text-base font-semibold text-charcoal-900 mb-1">Private Plan</h3>
-<p class="text-xs text-charcoal-600 font-light leading-relaxed">
-                Receive an off-market shortlist, a verified selling range, or an acquisition strategy aligned to your fiscal calendar.
-              </p>
+<h4 class="font-serif text-base text-brand-dark font-medium">Private plan</h4>
+<p class="text-xs text-brand-taupe mt-0.5 leading-relaxed">Receive a short list, a selling range, or a preparation plan that feels realistic and fits your exact timeline.</p>
 </div>
 </div>
 <!-- Step 3 -->
-<div class="p-6 rounded-xl bg-white border border-linen-200 shadow-sm flex items-start gap-5">
-<div class="text-2xl font-serif text-cognac-600 font-light">03</div>
+<div class="flex items-start space-x-3.5 bg-white p-4 rounded-xl border border-brand-border shadow-xs">
+<span class="font-serif text-xl font-bold text-brand-rust/80 mt-0.5">03</span>
 <div>
-<h3 class="text-base font-semibold text-charcoal-900 mb-1">Careful Showings &amp; Due Diligence</h3>
-<p class="text-xs text-charcoal-600 font-light leading-relaxed">
-                Only verified buyers and vetted assets make it onto the itinerary. Every showing is private, prepared, not improvised.
-              </p>
+<h4 class="font-serif text-base text-brand-dark font-medium">Careful showings</h4>
+<p class="text-xs text-brand-taupe mt-0.5 leading-relaxed">Only serious buyers and useful homes make it onto the calendar. Every viewing is prepared, not improvised.</p>
 </div>
 </div>
 <!-- Step 4 -->
-<div class="p-6 rounded-xl bg-white border border-linen-200 shadow-sm flex items-start gap-5">
-<div class="text-2xl font-serif text-cognac-600 font-light">04</div>
+<div class="flex items-start space-x-3.5 bg-white p-4 rounded-xl border border-brand-border shadow-xs">
+<span class="font-serif text-xl font-bold text-brand-rust/80 mt-0.5">04</span>
 <div>
-<h3 class="text-base font-semibold text-charcoal-900 mb-1">Steady Close</h3>
-<p class="text-xs text-charcoal-600 font-light leading-relaxed">
-                Inspections, commercial title, zoning clearances, and closing terms are handled with calm attention until the goal is achieved.
-              </p>
-</div>
-</div>
+<h4 class="font-serif text-base text-brand-dark font-medium">Steady close</h4>
+<p class="text-xs text-brand-taupe mt-0.5 leading-relaxed">Offers, inspections, and final terms are managed with calm attention until the right outcome is reached.</p>
 </div>
 </div>
 </div>
 </section>
-<!-- END: RoadmapProcessSection -->
-<!-- BEGIN: ClientTestimonialsSection -->
-<section class="py-24 bg-linen-100/70 border-b border-linen-200">
-<div class="max-w-7xl mx-auto px-6 lg:px-12">
-<!-- Section Header -->
-<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-6">
+<!-- END: Process Timeline Section -->
+<!-- BEGIN: Testimonials Section -->
+<section class="px-4 py-8 max-w-xl mx-auto" data-purpose="testimonials">
+<div class="mb-6">
+<span class="text-[10px] uppercase font-bold tracking-widest text-brand-taupe block mb-1">Client Praise</span>
+<h2 class="serif-display text-3xl text-brand-dark">The best praise sounds <span class="italic text-brand-rust">relieved.</span></h2>
+</div>
+<div class="space-y-4">
+<!-- Review 1 with interior photo backdrop -->
+<div class="relative bg-brand-dark text-white rounded-2xl p-5 overflow-hidden shadow-md">
+<img alt="Interior home" class="absolute inset-0 w-full h-full object-cover opacity-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsXPq4b99Gx_WzBy-v_h7ko8vwYBrad8WMXEHUI6RhgPLKv4U9BqtTKGtVidMhQHrAvM8fE4V3Mz0jd7WJ5oyljz3a4R-KnH8I6UwGa9gxnOI6erzQRg4Mz4sM42p6UOs-1UV-iuz_dUUZ0y8FqxF6gSev-8nqHy40wEQ8vaHxKuY5rbNquIeqV57WfJMMvnz4wkKnqVzm-46YClljz6r--PDA_725JyAvcWN3kcQL"/>
+<div class="relative z-10">
+<blockquote class="serif-display text-lg italic text-brand-cream mb-4">
+              “Avery made a complicated sale feel simple. We always knew what was happening, and we never felt rushed.”
+            </blockquote>
+<div class="flex items-center space-x-2.5">
+<div class="w-8 h-8 rounded-full bg-brand-rust flex items-center justify-center font-serif text-xs font-semibold">D</div>
 <div>
-<span class="text-[11px] tracking-widest uppercase font-semibold text-cognac-600 block mb-2">Verified Client Reviews</span>
-<h2 class="text-3xl sm:text-4xl font-serif text-charcoal-900 font-normal">
-            The best praise sounds <span class="font-serif-italic text-cognac-600">relieved.</span>
-</h2>
+<p class="text-xs font-semibold text-white">David L.</p>
+<p class="text-[10px] text-brand-sand/70">Seller in Brentwood</p>
 </div>
-<span class="text-xs text-charcoal-500 italic">
-          Private client references available upon confidential request
-        </span>
-</div>
-<!-- Testimonial Grid -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-purpose="testimonials-grid">
-<!-- Review 1 -->
-<div class="bg-white rounded-2xl p-8 border border-linen-200 shadow-sm flex flex-col justify-between">
-<div>
-<div class="text-cognac-500 mb-4 text-xs">
-<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-</div>
-<p class="font-serif text-charcoal-900 text-lg leading-relaxed mb-6 font-normal">
-              “She understood the home, the neighborhood, and the kind of buyer we needed. That made all the difference when listing our Governors Club estate.”
-            </p>
-</div>
-<div class="pt-4 border-t border-linen-100 flex items-center gap-3">
-<div class="w-9 h-9 rounded-full bg-forest-850 text-white flex items-center justify-center text-xs font-semibold">MB</div>
-<div>
-<h4 class="text-xs font-semibold text-charcoal-900">Marcus &amp; Bev D.</h4>
-<span class="text-[10px] text-charcoal-500">Governors Club, Chapel Hill</span>
 </div>
 </div>
 </div>
 <!-- Review 2 -->
-<div class="bg-white rounded-2xl p-8 border border-linen-200 shadow-sm flex flex-col justify-between">
+<div class="bg-white rounded-xl p-4 border border-brand-border shadow-sm">
+<blockquote class="font-serif text-base italic text-brand-dark mb-3">
+            “She understood the house, the street, and the kind of buyer we needed. That made all the difference.”
+          </blockquote>
+<div class="flex items-center space-x-2">
+<div class="w-7 h-7 rounded-full bg-brand-sand flex items-center justify-center text-[10px] font-bold text-brand-dark">M</div>
 <div>
-<div class="text-cognac-500 mb-4 text-xs">
-<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-</div>
-<p class="font-serif text-charcoal-900 text-lg leading-relaxed mb-6 font-normal">
-              “Avery showed us estates we would not have found on our own. Every viewing felt private, prepared, and entirely worth our executive team's time.”
-            </p>
-</div>
-<div class="pt-4 border-t border-linen-100 flex items-center gap-3">
-<div class="w-9 h-9 rounded-full bg-cognac-600 text-white flex items-center justify-center text-xs font-semibold">PS</div>
-<div>
-<h4 class="text-xs font-semibold text-charcoal-900">Priya S.</h4>
-<span class="text-[10px] text-charcoal-500">Corporate Relocation, Cary</span>
+<p class="text-xs font-semibold text-brand-dark">Marcus &amp; Bev G.</p>
+<p class="text-[9px] text-brand-taupe">Sellers in Hollywood Hills</p>
 </div>
 </div>
 </div>
 <!-- Review 3 -->
-<div class="bg-white rounded-2xl p-8 border border-linen-200 shadow-sm flex flex-col justify-between">
+<div class="bg-white rounded-xl p-4 border border-brand-border shadow-sm">
+<blockquote class="font-serif text-base italic text-brand-dark mb-3">
+            “Avery showed us homes we would not have found on our own. Every viewing felt worth our time.”
+          </blockquote>
+<div class="flex items-center space-x-2">
+<div class="w-7 h-7 rounded-full bg-brand-sand flex items-center justify-center text-[10px] font-bold text-brand-dark">P</div>
 <div>
-<div class="text-cognac-500 mb-4 text-xs">
-<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-</div>
-<p class="font-serif text-charcoal-900 text-lg leading-relaxed mb-6 font-normal">
-              “Avery made a 1031 commercial exchange look simple. We always knew what was happening behind the scenes, and we never once felt rushed.”
-            </p>
-</div>
-<div class="pt-4 border-t border-linen-100 flex items-center gap-3">
-<div class="w-9 h-9 rounded-full bg-charcoal-800 text-white flex items-center justify-center text-xs font-semibold">DL</div>
-<div>
-<h4 class="text-xs font-semibold text-charcoal-900">David L.</h4>
-<span class="text-[10px] text-charcoal-500">Medical Pavilion Principal, Raleigh</span>
-</div>
+<p class="text-xs font-semibold text-brand-dark">Priya S.</p>
+<p class="text-[9px] text-brand-taupe">Buyer in Malibu</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<!-- END: ClientTestimonialsSection -->
-<!-- BEGIN: InteractiveFAQSection -->
-<section class="py-24 bg-linen-50 border-b border-linen-200" id="faq">
-<div class="max-w-4xl mx-auto px-6">
-<!-- Section Header -->
-<div class="text-center mb-16">
-<span class="text-[11px] tracking-widest uppercase font-semibold text-cognac-600 block mb-2">Common Inquiries</span>
-<h2 class="text-3xl sm:text-4xl font-serif text-charcoal-900 font-normal">
-          What clients usually ask <span class="font-serif-italic text-cognac-600">first.</span>
-</h2>
-<p class="text-xs sm:text-sm text-charcoal-600 font-light mt-2">
-          Every situation is discrete. If your question isn't answered here, Avery is happy to speak directly.
+<!-- END: Testimonials Section -->
+<!-- BEGIN: Client FAQ Accordion -->
+<section class="px-4 py-10 max-w-xl mx-auto" data-purpose="faq-accordion" id="faq">
+<div class="mb-6">
+<span class="text-[10px] uppercase font-bold tracking-widest text-brand-taupe block mb-1">Questions</span>
+<h2 class="serif-display text-3xl text-brand-dark">What clients usually <span class="italic text-brand-rust">ask first.</span></h2>
+</div>
+<div class="space-y-2.5">
+<!-- FAQ Item 1 -->
+<div class="bg-white border border-brand-border rounded-xl overflow-hidden faq-item">
+<button class="w-full p-4 text-left flex items-center justify-between text-xs font-semibold text-brand-dark hover:bg-brand-sand/30 faq-btn" type="button">
+<span>How do I book my first appointment?</span>
+<span class="transform transition-transform faq-icon text-brand-rust font-bold text-base">+</span>
+</button>
+<div class="faq-answer max-h-0 overflow-hidden px-4 text-xs text-brand-taupe leading-relaxed transition-all duration-300">
+<p class="pb-4">You can request an informal 20-minute consultation directly below. We will discuss your current timeline and goals with no obligation to list or sign.</p>
+</div>
+</div>
+<!-- FAQ Item 2 -->
+<div class="bg-white border border-brand-border rounded-xl overflow-hidden faq-item">
+<button class="w-full p-4 text-left flex items-center justify-between text-xs font-semibold text-brand-dark hover:bg-brand-sand/30 faq-btn" type="button">
+<span>Can we sell without going public right away?</span>
+<span class="transform transition-transform faq-icon text-brand-rust font-bold text-base">+</span>
+</button>
+<div class="faq-answer max-h-0 overflow-hidden px-4 text-xs text-brand-taupe leading-relaxed transition-all duration-300">
+<p class="pb-4">Yes. Over 70% of our luxury transactions begin quietly through private previews with verified buyers, preserving your privacy and family schedule.</p>
+</div>
+</div>
+<!-- FAQ Item 3 -->
+<div class="bg-white border border-brand-border rounded-xl overflow-hidden faq-item">
+<button class="w-full p-4 text-left flex items-center justify-between text-xs font-semibold text-brand-dark hover:bg-brand-sand/30 faq-btn" type="button">
+<span>Do you help buyers find off-market properties?</span>
+<span class="transform transition-transform faq-icon text-brand-rust font-bold text-base">+</span>
+</button>
+<div class="faq-answer max-h-0 overflow-hidden px-4 text-xs text-brand-taupe leading-relaxed transition-all duration-300">
+<p class="pb-4">Absolutely. Avery maintains relationships with architectural preservationists, wealth managers, and estate attorneys to uncover homes not listed on MLS.</p>
+</div>
+</div>
+<!-- FAQ Item 4 -->
+<div class="bg-white border border-brand-border rounded-xl overflow-hidden faq-item">
+<button class="w-full p-4 text-left flex items-center justify-between text-xs font-semibold text-brand-dark hover:bg-brand-sand/30 faq-btn" type="button">
+<span>How soon should we call before listing?</span>
+<span class="transform transition-transform faq-icon text-brand-rust font-bold text-base">+</span>
+</button>
+<div class="faq-answer max-h-0 overflow-hidden px-4 text-xs text-brand-taupe leading-relaxed transition-all duration-300">
+<p class="pb-4">Ideally 30 to 90 days before your desired market date. This provides ample time for quiet cosmetic enhancements, staging assessment, and media production.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Client FAQ Accordion -->
+<!-- BEGIN: Consultation Booking Card -->
+<section class="px-4 py-8 max-w-xl mx-auto" data-purpose="consultation-section" id="consultation">
+<div class="bg-brand-dark text-white rounded-3xl p-6 relative overflow-hidden shadow-2xl border border-brand-borderDark">
+<span class="text-[10px] uppercase font-bold tracking-[0.2em] text-brand-rustLight block mb-1">Book a Consultation</span>
+<h2 class="serif-display text-3xl font-light mb-3">Your next move deserves the <span class="italic text-brand-cream">right advisor.</span></h2>
+<p class="text-xs text-brand-sand/80 mb-6 font-light leading-relaxed">
+          Speak with Avery about buying, selling, or simply understanding what your Los Angeles home may be worth today.
+        </p>
+<!-- Fast Consultation Interactive Form -->
+<form class="space-y-3" id="consult-form" onsubmit="event.preventDefault(); alert('Thank you. Avery Dunn will reach out within 24 hours.');">
+<div>
+<label class="sr-only" for="client-name">Your Full Name</label>
+<input class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 text-xs focus:ring-1 focus:ring-brand-rust focus:border-brand-rust" id="client-name" placeholder="Full Name" required="" type="text"/>
+</div>
+<div>
+<label class="sr-only" for="client-email">Email or Phone</label>
+<input class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 text-xs focus:ring-1 focus:ring-brand-rust focus:border-brand-rust" id="client-email" placeholder="Email or Phone Number" required="" type="text"/>
+</div>
+<div>
+<label class="sr-only" for="client-intent">Interest</label>
+<select class="w-full px-4 py-3 rounded-xl bg-brand-forest border border-white/20 text-white text-xs focus:ring-1 focus:ring-brand-rust focus:border-brand-rust" id="client-intent">
+<option value="buying">I am looking to buy</option>
+<option value="selling">I am considering selling</option>
+<option value="private-inquiry">Private Off-Market Inquiry</option>
+<option value="valuation">Confidential Home Valuation</option>
+</select>
+</div>
+<button class="w-full py-3.5 px-4 rounded-xl bg-brand-rust text-white font-semibold text-xs tracking-wider uppercase shadow-md hover:bg-brand-rustLight transition mt-2" type="submit">
+            Schedule Private 20-Min Call
+          </button>
+</form>
+<p class="text-[10px] text-center text-brand-sand/60 mt-3 font-light">
+          No obligation. Fully confidential. Responded to within 24 hours.
         </p>
 </div>
-<!-- FAQ Accordion Container -->
-<div class="divide-y divide-linen-200 border-y border-linen-200" data-purpose="faq-accordion-list">
-<!-- FAQ 1 -->
-<div class="py-6 faq-item">
-<button aria-expanded="false" class="w-full flex items-center justify-between text-left focus:outline-none group faq-trigger">
-<span class="text-base sm:text-lg font-serif text-charcoal-900 group-hover:text-cognac-600 transition-colors font-medium">
-              How do I book my initial confidential consultation?
-            </span>
-<span class="w-7 h-7 rounded-full bg-linen-200 flex items-center justify-center text-xs text-charcoal-700 transition-transform duration-300 faq-icon">
-<i class="fa-solid fa-plus"></i>
-</span>
-</button>
-<div class="hidden pt-4 text-xs sm:text-sm text-charcoal-600 font-light leading-relaxed faq-content">
-            You can request a direct appointment through our online consultation modal or by calling our confidential desk directly. Avery typically responds within two hours for an exploratory 20-minute phone or in-person discussion.
-          </div>
-</div>
-<!-- FAQ 2 -->
-<div class="py-6 faq-item">
-<button aria-expanded="false" class="w-full flex items-center justify-between text-left focus:outline-none group faq-trigger">
-<span class="text-base sm:text-lg font-serif text-charcoal-900 group-hover:text-cognac-600 transition-colors font-medium">
-              Can we sell our estate without going public on the MLS?
-            </span>
-<span class="w-7 h-7 rounded-full bg-linen-200 flex items-center justify-center text-xs text-charcoal-700 transition-transform duration-300 faq-icon">
-<i class="fa-solid fa-plus"></i>
-</span>
-</button>
-<div class="hidden pt-4 text-xs sm:text-sm text-charcoal-600 font-light leading-relaxed faq-content">
-            Yes. A significant portion of Avery’s Carolina transactions are managed through our Private Placement Desk. We present the asset directly to verified buyers and institutional partners under executed non-disclosure agreements, preserving total personal privacy.
-          </div>
-</div>
-<!-- FAQ 3 -->
-<div class="py-6 faq-item">
-<button aria-expanded="false" class="w-full flex items-center justify-between text-left focus:outline-none group faq-trigger">
-<span class="text-base sm:text-lg font-serif text-charcoal-900 group-hover:text-cognac-600 transition-colors font-medium">
-              Do you represent commercial and mixed-use acquisitions as well as residences?
-            </span>
-<span class="w-7 h-7 rounded-full bg-linen-200 flex items-center justify-center text-xs text-charcoal-700 transition-transform duration-300 faq-icon">
-<i class="fa-solid fa-plus"></i>
-</span>
-</button>
-<div class="hidden pt-4 text-xs sm:text-sm text-charcoal-600 font-light leading-relaxed faq-content">
-            Yes. Avery is licensed across both commercial and residential practices in North Carolina. We regularly handle boutique commercial medical pavilions, Class-A professional offices, 1031 tax-deferred exchanges, and land assembly tracts across the Triangle and Charlotte regions.
-          </div>
-</div>
-<!-- FAQ 4 -->
-<div class="py-6 faq-item">
-<button aria-expanded="false" class="w-full flex items-center justify-between text-left focus:outline-none group faq-trigger">
-<span class="text-base sm:text-lg font-serif text-charcoal-900 group-hover:text-cognac-600 transition-colors font-medium">
-              How early should we speak before our anticipated move or sale?
-            </span>
-<span class="w-7 h-7 rounded-full bg-linen-200 flex items-center justify-center text-xs text-charcoal-700 transition-transform duration-300 faq-icon">
-<i class="fa-solid fa-plus"></i>
-</span>
-</button>
-<div class="hidden pt-4 text-xs sm:text-sm text-charcoal-600 font-light leading-relaxed faq-content">
-            Ideally 3 to 9 months in advance. Early collaboration allows us to audit capital expenditures, refine landscaping and interiors, conduct pre-market appraisal benchmarking, and align private buyers quietly before public calendar pressure arises.
-          </div>
-</div>
-</div>
-</div>
 </section>
-<!-- END: InteractiveFAQSection -->
-<!-- BEGIN: CallToActionCardSection -->
-<section class="py-24 bg-linen-50" id="contact">
-<div class="max-w-7xl mx-auto px-6 lg:px-12">
-<!-- High-End Consultation Card -->
-<div class="relative rounded-3xl overflow-hidden bg-charcoal-900 text-white shadow-2xl p-8 sm:p-14 lg:p-20 border border-linen-300" data-purpose="cta-banner">
-<div class="absolute inset-0">
-<img alt="Estate at Dusk" class="w-full h-full object-cover object-center filter brightness-[0.35]" src="https://lh3.googleusercontent.com/aida/AEtjO1U4At4aHY91O0McQUjb6ARN0XHHduyltCObJDFyc1PC_KG1tuWrdrHDyxs5ImrRq7WPyexCZBH8E__-PKX1YOU6JyzgPpYCVTmMWM0lB93IBQ33b2a1oKN8VaTI4j7NrzhXVZNh9lrMCF09KArV35lw85sZnnT2k1Qvn8QFmuFFTwlPuwKQW8e6ri5hzMVLMyW8nGiHDj6_tOvAvw0RirICjP-HtPTJ-To-IKB5j39rWg">
-<div class="absolute inset-0 bg-gradient-to-r from-forest-900/90 via-forest-900/80 to-transparent"></div>
+<!-- END: Consultation Booking Card -->
+</main>
+<!-- BEGIN: Luxury Footer -->
+<footer class="bg-brand-darker text-white border-t border-brand-borderDark mt-12 px-6 pt-12 pb-8" data-purpose="site-footer">
+<div class="max-w-xl mx-auto space-y-8">
+<!-- Footer Brand & Newsletter -->
+<div>
+<div class="flex items-center space-x-2 mb-3">
+<span class="w-7 h-7 rounded-full bg-brand-rust text-white flex items-center justify-center font-serif text-sm">A</span>
+<span class="font-serif text-xl tracking-wider text-brand-cream uppercase">Avery Estate</span>
 </div>
-<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-<div class="lg:col-span-7">
-<span class="text-[11px] font-semibold tracking-widest uppercase text-cognac-400 block mb-3">Book A Consultation</span>
-<h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-linen-50 font-normal leading-tight mb-4">
-              Your next move deserves the <span class="font-serif-italic text-cognac-400">right advisor.</span>
-</h2>
-<p class="text-linen-200 text-sm sm:text-base font-light max-w-lg leading-relaxed">
-              Speak with Sarah Avery about buying, selling, or simply understanding what your North Carolina portfolio or estate may be worth today.
-            </p>
-</div>
-<!-- Quick Action Consultation Card -->
-<div class="lg:col-span-5 bg-white/10 frosted-glass p-6 sm:p-8 rounded-2xl border border-white/20">
-<span class="text-[10px] tracking-widest uppercase font-semibold text-cognac-400 block">20-Minute Private Call</span>
-<h3 class="text-xl font-serif text-white font-normal mt-1 mb-2">No obligation. No pressure to decide.</h3>
-<p class="text-xs text-linen-300 mb-6 leading-relaxed">
-              Share where you are in the process. Avery will respond personally within 2 hours.
-            </p>
-<button class="w-full py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-cognac-600 hover:bg-cognac-700 text-white transition-all text-center block shadow" onclick="openModal('consultation-modal')">
-              Book a Call with Avery
-            </button>
-<div class="text-center mt-3">
-<a class="text-[11px] text-linen-300 hover:text-white transition-colors underline" href="mailto:advisory@averyestate.com">
-                advisory@averyestate.com
-              </a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- END: CallToActionCardSection -->
-<!-- BEGIN: SiteFooter -->
-<footer class="bg-forest-900 text-linen-200 pt-20 pb-12 border-t border-forest-800" data-purpose="site-footer">
-<div class="max-w-7xl mx-auto px-6 lg:px-12">
-<!-- Top Row: Brand & Newsletter -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-14 border-b border-forest-800 items-start">
-<div class="lg:col-span-6">
-<div class="flex items-center gap-3 mb-4">
-<div class="w-8 h-8 rounded-full bg-forest-800 flex items-center justify-center text-cognac-400">
-<i class="fa-solid fa-compass text-xs"></i>
-</div>
-<span class="text-2xl font-serif text-white tracking-tight">Avery Estate</span>
-</div>
-<p class="text-xs text-linen-400 max-w-sm leading-relaxed font-light">
-            Luxury residential brokerage and commercial investment advisory serving Raleigh-Durham, Charlotte, and the Carolinas with fiduciary excellence.
-          </p>
-</div>
-<div class="lg:col-span-6 flex flex-col sm:items-end justify-center">
-<span class="text-[11px] uppercase tracking-widest text-linen-300 font-semibold mb-3 block">
-            Luxury Real Estate, Without the Noise
-          </span>
-<!-- Discreet Newsletter Input -->
-<form class="flex w-full sm:w-auto max-w-md gap-2" onsubmit="event.preventDefault(); alert('Thank you. You have been added to our private ledger.');">
-<input class="bg-forest-850 border border-forest-700 rounded-full px-5 py-2.5 text-xs text-white placeholder-linen-400 focus:outline-none focus:border-cognac-400 flex-1 sm:w-64" placeholder="private@client.com" required="" type="email">
-<button class="px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-cognac-600 hover:bg-cognac-700 text-white transition-colors" type="submit">
-              Subscribe
-            </button>
+<p class="text-xs text-brand-sand/70 font-light max-w-xs mb-4">
+          Luxury real estate, without the noise. Private representation across Southern California.
+        </p>
+<!-- Newsletter form -->
+<form class="flex items-center space-x-2" onsubmit="event.preventDefault(); alert('Subscribed to private market intelligence.');">
+<input class="flex-1 px-3.5 py-2 rounded-lg bg-white/5 border border-white/15 text-white placeholder-white/40 text-xs focus:ring-brand-rust" placeholder="name@domain.com" required="" type="email"/>
+<button class="px-4 py-2 rounded-lg bg-white text-brand-dark text-xs font-semibold uppercase hover:bg-brand-sand transition" type="submit">Join</button>
 </form>
 </div>
-</div>
-<!-- Middle Links & Address Grid -->
-<div class="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 text-xs">
+<!-- Quick Links Grid -->
+<div class="grid grid-cols-2 gap-6 text-xs text-brand-sand/70 pt-2 border-t border-brand-borderDark/60">
 <div>
-<span class="text-[10px] tracking-widest uppercase font-semibold text-cognac-400 block mb-4">Practice Areas</span>
-<ul class="space-y-2.5 text-linen-300 font-light">
-<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#portfolio">Residential Estates ($3M+)</a></li>
-<li class=""><a class="hover:text-white transition-colors" href="javascript:void(0)" onclick="openModal('private-list-modal')">Private Placement Desk</a></li>
-<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#transactions">Commercial &amp; Medical Suites</a></li>
-<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#transactions">1031 Tax-Deferred Exchanges</a></li>
+<span class="font-semibold text-brand-cream uppercase tracking-wider block mb-2 text-[10px]">Navigation</span>
+<ul class="space-y-1.5 font-light">
+<li><a class="hover:text-white transition" href="#featured">Featured Homes</a></li>
+<li><a class="hover:text-white transition" href="#recent-sales">Discreet Sales</a></li>
+<li><a class="hover:text-white transition" href="#advisor">About Avery</a></li>
+<li><a class="hover:text-white transition" href="#timeline">The Process</a></li>
 </ul>
 </div>
 <div>
-<span class="text-[10px] tracking-widest uppercase font-semibold text-cognac-400 block mb-4">North Carolina Enclaves</span>
-<ul class="space-y-2.5 text-linen-300 font-light">
-<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#enclaves">Raleigh / ITB / Umstead</a></li>
-<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#enclaves">Chapel Hill / Governors Club</a></li>
-<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#enclaves">Cary / Prestonwood</a></li>
-<li class=""><a class="header-scroll-link hover:text-white transition-colors" href="#enclaves">Lake Norman &amp; Charlotte</a></li>
-</ul>
-</div>
-<div>
-<span class="text-[10px] tracking-widest uppercase font-semibold text-cognac-400 block mb-4">Raleigh Office</span>
-<p class="text-linen-300 font-light leading-relaxed">
-            4208 Six Forks Road, Suite 1400<br>
-            Raleigh, NC 27609<br>
-            Direct: (919) 555-0148
-          </p>
-</div>
-<div>
-<span class="text-[10px] tracking-widest uppercase font-semibold text-cognac-400 block mb-4">Charlotte Annex</span>
-<p class="text-linen-300 font-light leading-relaxed">
-            201 S. College Street, 28th Floor<br>
-            Charlotte, NC 28244<br>
-            Direct: (704) 555-0192
-          </p>
+<span class="font-semibold text-brand-cream uppercase tracking-wider block mb-2 text-[10px]">Contact</span>
+<p class="font-light">Beverly Hills • Malibu</p>
+<p class="font-light mt-1">info@averyestate.com</p>
+<p class="font-light mt-1">(310) 905-2144</p>
+<p class="text-[10px] text-brand-sand/50 mt-2 font-mono">DRE #02194821</p>
 </div>
 </div>
-<!-- Bottom Compliance & Trademark -->
-<div class="pt-8 border-t border-forest-800 flex flex-col md:flex-row items-center justify-between text-[11px] text-linen-400 gap-4 font-light">
-<div class="flex items-center gap-4">
-<i class="fa-solid fa-house-chimney text-linen-300" title="Equal Housing Opportunity"></i>
-<span class="">Equal Housing Opportunity • All Rights Reserved © 2026 Avery Estate Advisory LLC</span>
-</div>
-<div class="flex items-center gap-6">
-<a class="hover:text-white transition-colors" href="#">Disclaimers &amp; Ethics</a>
-<a class="hover:text-white transition-colors" href="#">Privacy Policy</a>
-<a class="hover:text-white transition-colors" href="#">Licensing Verification</a>
-</div>
+<!-- Copyright -->
+<div class="pt-6 border-t border-brand-borderDark/60 text-[10px] text-brand-sand/50 flex flex-col xs:flex-row items-center justify-between font-light space-y-2 xs:space-y-0">
+<p>© 2026 Avery Estate. All rights reserved.</p>
+<p>Equal Housing Opportunity</p>
 </div>
 </div>
 </footer>
-<!-- END: SiteFooter -->
-<!-- BEGIN: InteractiveModalWindows -->
-<!-- 1. Consultation Request Modal -->
-<div class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-charcoal-900/80 frosted-glass" data-purpose="modal-consultation" id="consultation-modal">
-<div class="bg-linen-50 rounded-2xl max-w-lg w-full p-8 shadow-2xl border border-linen-300 relative">
-<button aria-label="Close Modal" class="absolute top-6 right-6 text-charcoal-500 hover:text-charcoal-900 text-lg" onclick="closeModal('consultation-modal')">
-<i class="fa-solid fa-xmark"></i>
-</button>
-<span class="text-[10px] tracking-widest uppercase font-semibold text-cognac-600 block mb-1">Confidential Advisory</span>
-<h3 class="text-2xl font-serif text-charcoal-900 mb-2">Request Consultation</h3>
-<p class="text-xs text-charcoal-600 mb-6 font-light">
-        Share your inquiry below. Avery personally responds to all requests within two hours during business hours.
-      </p>
-<form class="space-y-4" onsubmit="event.preventDefault(); alert('Consultation request received. Sarah Avery will reach out shortly.'); closeModal('consultation-modal');">
-<div>
-<label class="block text-xs font-semibold text-charcoal-800 mb-1">Your Full Name</label>
-<input class="w-full bg-white border border-linen-300 rounded-lg px-3.5 py-2.5 text-xs text-charcoal-900 focus:outline-none focus:border-cognac-600" placeholder="e.g. Eleanor Vance" required="" type="text">
-</div>
-<div class="grid grid-cols-2 gap-3">
-<div>
-<label class="block text-xs font-semibold text-charcoal-800 mb-1">Email</label>
-<input class="w-full bg-white border border-linen-300 rounded-lg px-3.5 py-2.5 text-xs text-charcoal-900 focus:outline-none focus:border-cognac-600" placeholder="name@domain.com" required="" type="email">
-</div>
-<div>
-<label class="block text-xs font-semibold text-charcoal-800 mb-1">Direct Phone</label>
-<input class="w-full bg-white border border-linen-300 rounded-lg px-3.5 py-2.5 text-xs text-charcoal-900 focus:outline-none focus:border-cognac-600" placeholder="(919) 000-0000" type="tel">
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold text-charcoal-800 mb-1">Inquiry Focus</label>
-<select class="w-full bg-white border border-linen-300 rounded-lg px-3.5 py-2.5 text-xs text-charcoal-900 focus:outline-none focus:border-cognac-600">
-<option>Residential Acquisition ($3M+)</option>
-<option>Confidential Estate Sale / Listing</option>
-<option>Commercial / Medical Office Investment</option>
-<option>General Asset Valuation &amp; Consulting</option>
-</select>
-</div>
-<div>
-<label class="block text-xs font-semibold text-charcoal-800 mb-1">Confidential Notes</label>
-<textarea class="w-full bg-white border border-linen-300 rounded-lg px-3.5 py-2.5 text-xs text-charcoal-900 focus:outline-none focus:border-cognac-600" placeholder="Target neighborhood, timeline, or asset specifics..." rows="3"></textarea>
-</div>
-<button class="w-full py-3 rounded-full text-xs font-semibold uppercase tracking-wider bg-forest-850 hover:bg-forest-900 text-white transition-all" type="submit">
-          Submit Confidential Request
-        </button>
-</form>
-</div>
-</div>
-<!-- 2. Private Access Gate Modal -->
-<div class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-charcoal-900/80 frosted-glass" data-purpose="modal-private-gate" id="private-list-modal">
-<div class="bg-linen-50 rounded-2xl max-w-md w-full p-8 shadow-2xl border border-linen-300 relative text-center">
-<button aria-label="Close Modal" class="absolute top-6 right-6 text-charcoal-500 hover:text-charcoal-900 text-lg" onclick="closeModal('private-list-modal')">
-<i class="fa-solid fa-xmark"></i>
-</button>
-<div class="w-12 h-12 rounded-full bg-cognac-600/10 text-cognac-600 flex items-center justify-center mx-auto mb-4 text-lg">
-<i class="fa-solid fa-lock"></i>
-</div>
-<h3 class="text-2xl font-serif text-charcoal-900 mb-2">Private Access Registry</h3>
-<p class="text-xs text-charcoal-600 mb-6 font-light leading-relaxed">
-        Off-market properties in Raleigh, Jordan Lake, and Quail Hollow require accredited verification to protect owner privacy.
-      </p>
-<form class="space-y-4 text-left" onsubmit="event.preventDefault(); alert('Access credentials sent to your private email address.'); closeModal('private-list-modal');">
-<div>
-<label class="block text-xs font-semibold text-charcoal-800 mb-1">Full Legal Name</label>
-<input class="w-full bg-white border border-linen-300 rounded-lg px-3.5 py-2.5 text-xs text-charcoal-900 focus:outline-none focus:border-cognac-600" placeholder="John / Jane Doe" required="" type="text">
-</div>
-<div>
-<label class="block text-xs font-semibold text-charcoal-800 mb-1">Private Email</label>
-<input class="w-full bg-white border border-linen-300 rounded-lg px-3.5 py-2.5 text-xs text-charcoal-900 focus:outline-none focus:border-cognac-600" placeholder="principal@familyoffice.com" required="" type="email">
-</div>
-<button class="w-full py-3 rounded-full text-xs font-semibold uppercase tracking-wider bg-cognac-600 hover:bg-cognac-700 text-white transition-all" type="submit">
-          Request Private Passcode
-        </button>
-</form>
-</div>
-</div>
-<!-- END: InteractiveModalWindows -->
-<!-- Bootstrap 5 Bundle JS -->
-<script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- BEGIN: InteractiveScripts -->
-<script data-purpose="accordion-and-modals">
-    // Top Slide-Down Offcanvas Drawer Functions
-    function openNavDrawer() {
-      const backdrop = document.getElementById('nav-drawer-backdrop');
-      const drawer = document.getElementById('top-nav-drawer');
-      if (backdrop && drawer) {
-        backdrop.classList.remove('opacity-0', 'pointer-events-none');
-        backdrop.classList.add('opacity-100');
-        backdrop.setAttribute('aria-hidden', 'false');
-        drawer.classList.remove('-translate-y-full');
-        drawer.classList.add('translate-y-0');
-        document.body.style.overflow = 'hidden';
-      }
+<!-- END: Luxury Footer -->
+<!-- BEGIN: Interactive Drawer & FAQ Scripts -->
+<script data-purpose="mobile-drawer-toggle">
+    // Drawer open / close logic
+    const openBtn = document.getElementById('open-drawer-btn');
+    const closeBtn = document.getElementById('close-drawer-btn');
+    const drawer = document.getElementById('drawer-menu');
+    const backdrop = document.getElementById('drawer-backdrop');
+    const drawerLinks = document.querySelectorAll('.drawer-link');
+
+    function openDrawer() {
+      drawer.classList.remove('translate-x-full');
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      backdrop.classList.add('opacity-100', 'pointer-events-auto');
+      document.body.style.overflow = 'hidden';
     }
 
-    function closeNavDrawer() {
-      const backdrop = document.getElementById('nav-drawer-backdrop');
-      const drawer = document.getElementById('top-nav-drawer');
-      if (backdrop && drawer) {
-        backdrop.classList.remove('opacity-100');
-        backdrop.classList.add('opacity-0', 'pointer-events-none');
-        backdrop.setAttribute('aria-hidden', 'true');
-        drawer.classList.remove('translate-y-0');
-        drawer.classList.add('-translate-y-full');
-        document.body.style.overflow = '';
-      }
+    function closeDrawer() {
+      drawer.classList.add('translate-x-full');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+      document.body.style.overflow = '';
     }
 
-    // Modal Control Functions
-    function openModal(modalId) {
-      const modal = document.getElementById(modalId);
-      if (modal) {
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      }
-    }
+    openBtn.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
 
-    function closeModal(modalId) {
-      const modal = document.getElementById(modalId);
-      if (modal) {
-        modal.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-    }
+    drawerLinks.forEach(link => {
+      link.addEventListener('click', closeDrawer);
+    });
+  </script>
+<script data-purpose="accordion-logic">
+    // FAQ accordion toggle logic
+    const faqButtons = document.querySelectorAll('.faq-btn');
 
-    // Smooth Scroll to Element with Fixed Header Offset
-    function smoothScrollToElement(targetId) {
-      if (!targetId || targetId === '#') return;
-      const id = targetId.startsWith('#') ? targetId.substring(1) : targetId;
-      const targetElement = document.getElementById(id);
-      if (targetElement) {
-        const header = document.getElementById('site-header');
-        const headerOffset = header ? header.offsetHeight + 16 : 84;
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    faqButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answer = btn.nextElementSibling;
+        const icon = btn.querySelector('.faq-icon');
+        const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
+        // Close other items
+        document.querySelectorAll('.faq-answer').forEach(el => {
+          el.style.maxHeight = '0px';
         });
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // Backdrop click handler
-      const scrim = document.getElementById('drawer-scrim');
-      if (scrim) {
-        scrim.addEventListener('click', closeNavDrawer);
-      }
-
-      // Close drawer on Escape key
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          closeNavDrawer();
-          closeModal('consultation-modal');
-          closeModal('private-list-modal');
-        }
-      });
-
-      // Attach smooth scrolling and auto-close to all drawer scroll links
-      document.querySelectorAll('.drawer-scroll-link').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          const targetId = this.getAttribute('href');
-          if (targetId && targetId.startsWith('#')) {
-            e.preventDefault();
-            closeNavDrawer();
-            setTimeout(() => {
-              smoothScrollToElement(targetId);
-            }, 180);
-          }
+        document.querySelectorAll('.faq-icon').forEach(ic => {
+          ic.textContent = '+';
+          ic.classList.remove('rotate-45');
         });
-      });
 
-      // Attach smooth scrolling to all other internal header/anchor links
-      document.querySelectorAll('.header-scroll-link, a[href^="#"]:not(.drawer-scroll-link)').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          const targetId = this.getAttribute('href');
-          if (targetId && targetId.startsWith('#') && targetId.length > 1) {
-            e.preventDefault();
-            smoothScrollToElement(targetId);
-          }
-        });
-      });
-
-      // FAQ Accordion Interaction
-      document.querySelectorAll('.faq-trigger').forEach(button => {
-        button.addEventListener('click', () => {
-          const item = button.closest('.faq-item');
-          const content = item.querySelector('.faq-content');
-          const icon = item.querySelector('.faq-icon i');
-          const isExpanded = button.getAttribute('aria-expanded') === 'true';
-
-          // Close all other accordions
-          document.querySelectorAll('.faq-item').forEach(otherItem => {
-            if (otherItem !== item) {
-              otherItem.querySelector('.faq-content').classList.add('hidden');
-              otherItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
-              otherItem.querySelector('.faq-icon i').className = 'fa-solid fa-plus';
-            }
-          });
-
-          // Toggle current item
-          if (isExpanded) {
-            content.classList.add('hidden');
-            button.setAttribute('aria-expanded', 'false');
-            icon.className = 'fa-solid fa-plus';
-          } else {
-            content.classList.remove('hidden');
-            button.setAttribute('aria-expanded', 'true');
-            icon.className = 'fa-solid fa-minus';
-          }
-        });
-      });
-
-      // Close modals when clicking outside modal content
-      window.addEventListener('click', (e) => {
-        if (e.target.id === 'consultation-modal') closeModal('consultation-modal');
-        if (e.target.id === 'private-list-modal') closeModal('private-list-modal');
-      });
-
-      // Header subtle elevation on scroll
-      window.addEventListener('scroll', () => {
-        const header = document.getElementById('site-header');
-        if (header) {
-          if (window.scrollY > 20) {
-            header.classList.add('shadow-sm');
-          } else {
-            header.classList.remove('shadow-sm');
-          }
+        // Toggle current item
+        if (!isOpen) {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          icon.textContent = '×';
+        } else {
+          answer.style.maxHeight = '0px';
+          icon.textContent = '+';
         }
       });
     });
   </script>
-<!-- END: InteractiveScripts -->
-
-
+<!-- END: Interactive Drawer & FAQ Scripts -->
 </body></html>
